@@ -1,10 +1,13 @@
 using UnityEngine;
 
-public class AimScript : MonoBehaviour
+public class ThrowScript : MonoBehaviour
 {
+    public static ThrowScript instance;
     public GameObject powerBar;
-    public GameObject throwableObject;
+    private GameObject throwableObject;
+    public GameObject throwableObjectPrefab;
     public GameObject aimingHand;
+    public GameObject throwingHand;
     private bool aiming = false;
     private bool powering = false;
     public float aimingSpeed;
@@ -17,6 +20,29 @@ public class AimScript : MonoBehaviour
     private float position = 0;
     public float throwPower;
     private float throwPowerScaler;
+
+    private void Awake() {
+        instance = this;
+    }
+
+    public void ResetThrow()
+    {
+        Destroy(throwableObject);
+        CreateThrowableObject();
+    }
+
+
+    void Start()
+    {
+        CreateThrowableObject();
+    }
+
+    private void CreateThrowableObject()
+    {
+        throwableObject = Instantiate(throwableObjectPrefab, throwingHand.transform.position, throwingHand.transform.rotation);
+        throwableObject.transform.SetParent(throwingHand.transform);
+    }
+
     void OnMouseUp()
     {
         if(powering)
@@ -60,7 +86,6 @@ public class AimScript : MonoBehaviour
     private void ThrowObject()
     {
         throwableObject.transform.parent = null;
-        throwableObject.GetComponent<CircleCollider2D>().enabled = true;
         Rigidbody2D rigidbody2D = throwableObject.GetComponent<Rigidbody2D>();
         rigidbody2D.constraints = RigidbodyConstraints2D.None;
         throwPowerScaler = (position-minXPosition)*(100 / (maxXPosition - minXPosition));

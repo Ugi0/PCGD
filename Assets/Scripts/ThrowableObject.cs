@@ -17,7 +17,7 @@ public class ThrowableObject : MonoBehaviour
         // Check if the object is too far away from the target (missed target)
         if (Mathf.Abs(transform.position.x) > 30 || Mathf.Abs(transform.position.y) > 10)
         {
-            ResetGame(); // Call the method to reset the game
+            ThrowScript.instance.ResetThrow(); //create new throwable object
         }
     }
 

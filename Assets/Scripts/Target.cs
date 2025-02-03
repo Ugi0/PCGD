@@ -7,7 +7,7 @@ public class Target : MonoBehaviour
         if (collision.gameObject.CompareTag("ThrowableObject"))
         {
             ScoreManager.instance.AddPoints(); // Add points to the score
-            //Destroy(collision.gameObject);
+            ThrowScript.instance.ResetThrow(); //make new throwable object
         }
     }
 }
