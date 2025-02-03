@@ -90,5 +90,6 @@ public class ThrowScript : MonoBehaviour
         rigidbody2D.constraints = RigidbodyConstraints2D.None;
         throwPowerScaler = (position-minXPosition)*(100 / (maxXPosition - minXPosition));
         rigidbody2D.AddForce(transform.right*throwPower*throwPowerScaler);
+        powerBar.transform.localPosition = new Vector3(minXPosition,0,0);
     }
 }
