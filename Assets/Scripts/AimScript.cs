@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class AimScript : MonoBehaviour
 {
-    public GameObject throwingHand;
+    public GameObject powerBar;
     public GameObject throwableObject;
     public GameObject aimingHand;
     private bool aiming = false;
@@ -48,8 +48,8 @@ public class AimScript : MonoBehaviour
         }
         if(powering)
         {
-            throwingHand.transform.Translate(poweringSpeed,0,0);
-            position = throwingHand.transform.localPosition.x;
+            powerBar.transform.Translate(poweringSpeed,0,0);
+            position = powerBar.transform.localPosition.x;
             if(position > maxXPosition || position < minXPosition)
             {
                 poweringSpeed = -poweringSpeed;
@@ -63,7 +63,7 @@ public class AimScript : MonoBehaviour
         throwableObject.GetComponent<CircleCollider2D>().enabled = true;
         Rigidbody2D rigidbody2D = throwableObject.GetComponent<Rigidbody2D>();
         rigidbody2D.constraints = RigidbodyConstraints2D.None;
-        throwPowerScaler = 100-(position-minXPosition)*(100 / (maxXPosition - minXPosition));
+        throwPowerScaler = (position-minXPosition)*(100 / (maxXPosition - minXPosition));
         rigidbody2D.AddForce(transform.right*throwPower*throwPowerScaler);
     }
 }
