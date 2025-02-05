@@ -10,6 +10,7 @@ public class ThrowScript : MonoBehaviour
     public GameObject throwingHand;
     private bool aiming = false;
     private bool powering = false;
+    private bool throwing = false;
     public float aimingSpeed;
     public float poweringSpeed;
     public float maxZRotation;
@@ -27,10 +28,10 @@ public class ThrowScript : MonoBehaviour
 
     public void ResetThrow()
     {
+        throwing = false;
         Destroy(throwableObject);
         CreateThrowableObject();
     }
-
 
     void Start()
     {
@@ -48,16 +49,20 @@ public class ThrowScript : MonoBehaviour
         if(powering)
         {   
             powering = false;
+            throwing = true;
             ThrowObject();
         }
-        else if(!aiming)
+        else if(!throwing)
         {
-            aiming = true;
-        }
-        else
-        {
-            powering = true;
-            aiming = false;
+            if(!aiming)
+            {
+                aiming = true;
+            }
+            else
+            {
+                powering = true;
+                aiming = false;
+            }
         }
     }
 
@@ -85,10 +90,9 @@ public class ThrowScript : MonoBehaviour
 
     private void ThrowObject()
     {
-        throwableObject.transform.parent = null;
         Rigidbody2D rigidbody2D = throwableObject.GetComponent<Rigidbody2D>();
-        rigidbody2D.constraints = RigidbodyConstraints2D.None;
-        throwPowerScaler = (position-minXPosition)*(100 / (maxXPosition - minXPosition));
+        rigidbody2D.constraints = RigidbodyConstraints2D.None; //removes throwable object's rigidbody constrains to allow it simulate physics
+        throwPowerScaler = (position-minXPosition)*(100 / (maxXPosition - minXPosition)); //scales the power of the throw from the range specified to a range of 0-100
         rigidbody2D.AddForce(transform.right*throwPower*throwPowerScaler);
         powerBar.transform.localPosition = new Vector3(minXPosition,0,0);
     }
