@@ -1,32 +1,73 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; // Needed for scene reloading
 
 public class ThrowableObject : MonoBehaviour
 {
-    private Vector3 startPosition; // Store the starting position
-    private Rigidbody2D rb; // Rigidbody2D component reference
+    private Rigidbody2D rb;
+    public ThrowableData data;
 
-    void Start()
+    public void Initialize()
     {
-        startPosition = transform.position; // Save initial position
-        rb = GetComponent<Rigidbody2D>();    // Get Rigidbody2D component
+        rb = GetComponent<Rigidbody2D>();
+
+        rb.gravityScale = data.gravityScale;
+        rb.linearDamping = data.drag;
     }
 
-    void Update()
+    public void Launch(Vector2 direction)
     {
-        // Check if the object is too far away from the target (missed target)
-        if (Mathf.Abs(transform.position.x) > 30 || Mathf.Abs(transform.position.y) > 10)
+        switch (data.flightPattern)
         {
-            ThrowScript.instance.ResetThrow(); //create new throwable object
+            case ThrowableType.IMPULSE:
+                rb.AddForce(direction * data.initialPower, ForceMode2D.Impulse);
+                rb.AddTorque(data.torque, ForceMode2D.Impulse);
+                break;
+            case ThrowableType.FORCE:
+                rb.AddForce(direction * data.initialPower, ForceMode2D.Force);
+                break;
+            case ThrowableType.STRAIGHT:
+                Debug.LogError("Flight pattern not implemented!");
+                break;
+            case ThrowableType.NONE:
+                Debug.LogError("Flight pattern not set!");
+                break;
+            default:
+                Debug.LogError("Flight pattern not implemented!");
+                break;
         }
     }
 
-    void ResetGame()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Option 1: Reload the current scene (this resets everything in the scene)
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
-        // Option 2: You could manually reset objects here instead of reloading the scene
-        // ResetPosition(); // Uncomment this if you want to manually reset positions
+        CheckTargetHit(collision.gameObject);
     }
+
+    // TODO: change this system?
+    private void CheckTargetHit(GameObject hitObject)
+    {
+        // Check if hit object is a valid target
+        if(!hitObject.CompareTag("CollisionObject"))
+        {
+            return;
+        }
+        CollisionObject collisionObject = hitObject.GetComponent<CollisionObject>();
+        if (collisionObject != null)
+        {
+            HandleObjectHit(collisionObject);
+        }
+    }
+
+    private void HandleObjectHit(CollisionObject collisionObject)
+    {
+        if(data.hitEffectPrefab != null)
+            Instantiate(data.hitEffectPrefab, transform.position, Quaternion.identity);
+
+        collisionObject.HandleHit();
+
+        if(collisionObject.collisionType == CollisionType.GROUND)
+        {
+            Destroy(gameObject, 3f);
+        }
+    }
+
+
 }
