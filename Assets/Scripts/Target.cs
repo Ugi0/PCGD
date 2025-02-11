@@ -8,6 +8,9 @@ public class Target : MonoBehaviour
     private float increasedDistance;
 
     void Start() {
+        Relocate();
+    }
+    void Relocate() {
         float colliderWidth = spawnArea.GetComponent<BoxCollider2D>().bounds.size.x;
         float colliderHeight = spawnArea.GetComponent<BoxCollider2D>().bounds.size.y;
         gameObject.transform.position = new Vector2(
@@ -20,6 +23,7 @@ public class Target : MonoBehaviour
     {
         //if (collision.gameObject.CompareTag("ThrowableObject")) {
             ScoreManager.instance.AddPoints(); // Add points to the score
+            Relocate();
             ThrowScript.instance.ResetThrow(); //make new throwable object
             increasedDistance += 1;
         //}
