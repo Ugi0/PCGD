@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ParkingSign_0: 7479270096428910697
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

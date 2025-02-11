@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      IsometricDiamond_0: -102524876349858939
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
