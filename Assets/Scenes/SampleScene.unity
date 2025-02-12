@@ -1729,7 +1729,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstaclePrefab: {fileID: 1859269604258337432, guid: 04d7bd15cc7974479a74be397b78f9ed, type: 3}
-  spawnArea: {x: 10, y: 0, z: 10}
+  spawnArea: {x: 10, y: 5, z: 0}
 --- !u!4 &1107219171
 Transform:
   m_ObjectHideFlags: 0

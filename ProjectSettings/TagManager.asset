@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ThrowableObject
   - CollisionObject
+  - Obstacle
   layers:
   - Default
   - TransparentFX
