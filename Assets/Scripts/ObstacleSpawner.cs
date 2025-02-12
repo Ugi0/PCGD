@@ -4,6 +4,7 @@ public class ObstacleSpawner : MonoBehaviour
 {
     public GameObject obstaclePrefab; // Prefab to spawn
     public Vector3 spawnArea = new Vector3(10f, 0, 10f); // Spawn range
+    public int startingLevel; //The number when the obstacles start spawning
     private int targetSpawnCount = 0; // Track the number of targets spawned
 
     public void SpawnObstacles()
@@ -11,7 +12,7 @@ public class ObstacleSpawner : MonoBehaviour
         targetSpawnCount++; // Increase the counter every time a new target spawns
 
         // Only spawn obstacles after the second target spawn (i.e., from the third spawn onward)
-        if (targetSpawnCount < 3)
+        if (targetSpawnCount < startingLevel)
         {
             return;
         }
