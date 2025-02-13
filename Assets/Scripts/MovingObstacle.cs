@@ -25,7 +25,7 @@ public class MovingObstacle : MonoBehaviour
     if (collision.gameObject.CompareTag("ThrowableObject"))
     {
         animator.SetBool("isHit", true);
-        ThrowScript.instance.ResetThrow(); // Reset the throwable object
+        PlayerController.instance.ResetPlayer();
     }
 }
 }

@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController instance;
+
     [Header("References")]
     public GameObject powerBar;
     public GameObject[] throwables;
@@ -24,15 +26,21 @@ public class PlayerController : MonoBehaviour
     private PlayerState playerState;
     private GameObject currentThrowable;
 
+    void Awake()
+    {
+        instance = this;
+    }
+
     void Start()
     {
         ResetPlayer();
     }
 
-    void ResetPlayer()
+    public void ResetPlayer()
     {
         int randomIndex = Random.Range(0, throwables.Length); // for now
         currentThrowable = throwables[randomIndex];
+        InstantiateThrowable();
 
         playerState = PlayerState.IDLE;
 
@@ -138,9 +146,7 @@ public class PlayerController : MonoBehaviour
     {
         playerState = PlayerState.AIMING;
         aimingHand.SetActive(true);
-
         playerAnimator.SetBool("AimPhase", true);
-        playerAnimator.SetBool("PowerPhase", false);
         playerAnimator.speed = 1.0f;
     }
 
@@ -162,6 +168,10 @@ public class PlayerController : MonoBehaviour
         playerState = PlayerState.THROWING;
         powerBar.SetActive(false);
         aimingHand.SetActive(false);
+        
+        Rigidbody2D rigidbody2D = currentThrowable.GetComponent<Rigidbody2D>();
+        rigidbody2D.constraints = RigidbodyConstraints2D.None; //removes throwable object's rigidbody constrains to allow it simulate physics
+        currentThrowable.transform.SetParent(null);
 
         Vector2 throwDirection = CalculateThrowDirection();
         Throw(throwDirection);
@@ -181,15 +191,20 @@ public class PlayerController : MonoBehaviour
 
     void Throw(Vector2 direction)
     {
-        GameObject throwableObj = Instantiate(
+        ThrowableObject throwable = currentThrowable.GetComponent<ThrowableObject>();
+        throwable.Initialize();
+        throwable.Launch(direction);
+
+    }
+
+    private void InstantiateThrowable()
+    {
+        currentThrowable = Instantiate(
             currentThrowable,
             throwingHand.transform.position,
             Quaternion.identity
         );
-
-        ThrowableObject throwable = throwableObj.GetComponent<ThrowableObject>();
-        throwable.Initialize();
-        throwable.Launch(direction);
+        currentThrowable.transform.SetParent(throwingHand.transform);
     }
 }
 

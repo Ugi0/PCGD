@@ -26,6 +26,7 @@ public class CollisionObject : MonoBehaviour
     public void HandleTrafficCollisionHit()
     {
         Debug.Log("Ground hit!");
+        PlayerController.instance.ResetPlayer();
     }
 
     public void HandleTrafficSignCollisionHit()

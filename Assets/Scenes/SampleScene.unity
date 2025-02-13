@@ -254,13 +254,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 157387390}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.99938405, w: 0.0350934}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.004884278, y: -0.0085102515, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.05, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 312614532}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 75.3}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &188196479
 GameObject:
   m_ObjectHideFlags: 0
@@ -781,6 +781,7 @@ GameObject:
   - component: {fileID: 548033202}
   - component: {fileID: 548033201}
   - component: {fileID: 548033204}
+  - component: {fileID: 548033205}
   m_Layer: 0
   m_Name: ParkingSign_0
   m_TagString: CollisionObject
@@ -946,6 +947,19 @@ MonoBehaviour:
   spawnArea: {fileID: 1714949466}
   initialDistanceFromPlayer: 2
   varianceOnDistance: 2
+--- !u!114 &548033205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548033198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f9b816eaebc94df2805011e2ac4d249, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collisionType: 2
 --- !u!1 &575468474
 GameObject:
   m_ObjectHideFlags: 0
@@ -1121,6 +1135,7 @@ GameObject:
   m_Component:
   - component: {fileID: 723121253}
   - component: {fileID: 723121255}
+  - component: {fileID: 723121256}
   m_Layer: 0
   m_Name: GroundCollider
   m_TagString: CollisionObject
@@ -1189,6 +1204,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 500, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &723121256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 723121252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f9b816eaebc94df2805011e2ac4d249, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collisionType: 1
 --- !u!1 &770547593
 GameObject:
   m_ObjectHideFlags: 0
@@ -1389,7 +1417,7 @@ Transform:
   m_GameObject: {fileID: 851529460}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.9, y: 1.49, z: 0}
+  m_LocalPosition: {x: 0.706, y: 0.513, z: 0}
   m_LocalScale: {x: 0.3, y: 0.04, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1730,6 +1758,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstaclePrefab: {fileID: 1859269604258337432, guid: 04d7bd15cc7974479a74be397b78f9ed, type: 3}
   spawnArea: {x: 10, y: 5, z: 0}
+  startingLevel: 0
 --- !u!4 &1107219171
 Transform:
   m_ObjectHideFlags: 0
