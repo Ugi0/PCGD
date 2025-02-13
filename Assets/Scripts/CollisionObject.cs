@@ -33,6 +33,7 @@ public class CollisionObject : MonoBehaviour
     {
         ScoreManager.instance.AddPoints();
         Debug.Log("Traffic sign hit!");
+        AudioManager.Instance.PlaySFX("HitStreetSign");
     }
 }
 

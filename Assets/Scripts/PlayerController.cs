@@ -194,7 +194,7 @@ public class PlayerController : MonoBehaviour
         ThrowableObject throwable = currentThrowable.GetComponent<ThrowableObject>();
         throwable.Initialize();
         throwable.Launch(direction);
-
+        AudioManager.Instance.PlaySFX("Throw");
     }
 
     private void InstantiateThrowable()
