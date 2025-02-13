@@ -41,17 +41,18 @@ public class PlayerController : MonoBehaviour
         int randomIndex = Random.Range(0, throwables.Length); // for now
         currentThrowable = throwables[randomIndex];
         InstantiateThrowable();
-
-        playerState = PlayerState.IDLE;
-
         powerBar.SetActive(false);
         aimingHand.SetActive(false);
         currentAngle = (minAngle + maxAngle) / 2; // Start at the midpoint
         currentPower = 0f;
         powerSlider.value = 0f;
-        playerAnimator.SetBool("AimPhase", false);
-        playerAnimator.SetBool("PowerPhase", false);
-        playerAnimator.speed = 0.0f;
+        BecomeIdle();
+    }
+
+    void BecomeIdle()
+    {
+        playerState = PlayerState.IDLE;
+        playerAnimator.SetBool("ThrowPhase", false);
     }
 
     void Update()
@@ -65,13 +66,6 @@ public class PlayerController : MonoBehaviour
             case PlayerState.POWERING:
                 UpdatePower();
                 break;
-        }
-
-        // Debug
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            ResetPlayer();
-            Debug.Log("Player Reset!");
         }
     }
 
@@ -160,7 +154,6 @@ public class PlayerController : MonoBehaviour
 
         playerAnimator.SetBool("AimPhase", false);
         playerAnimator.SetBool("PowerPhase", true);
-        playerAnimator.speed = 1.0f;
     }
 
     void ExecuteThrow()
@@ -169,17 +162,15 @@ public class PlayerController : MonoBehaviour
         powerBar.SetActive(false);
         aimingHand.SetActive(false);
         
+        playerAnimator.SetBool("PowerPhase", false);
+        playerAnimator.SetBool("ThrowPhase", true);
+        
         Rigidbody2D rigidbody2D = currentThrowable.GetComponent<Rigidbody2D>();
         rigidbody2D.constraints = RigidbodyConstraints2D.None; //removes throwable object's rigidbody constrains to allow it simulate physics
         currentThrowable.transform.SetParent(null);
 
         Vector2 throwDirection = CalculateThrowDirection();
         Throw(throwDirection);
-
-        // Reset after throw
-        playerState = PlayerState.WALKING;
-
-        playerAnimator.speed = 0.0f;
     }
 
     Vector2 CalculateThrowDirection()
