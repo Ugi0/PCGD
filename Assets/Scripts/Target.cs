@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
+    float MAX_DISTANCE = 17f;
+    int HITS_UNTIL_MAX_DISTANCE = 15;
     [SerializeField] GameObject spawnArea;
     [SerializeField] float initialDistanceFromPlayer;
     [SerializeField] float varianceOnDistance;
-    private float increasedDistance;
+    private float hitCount = 0;
 
     private ObstacleSpawner obstacleSpawner;
 
@@ -13,12 +15,14 @@ public class Target : MonoBehaviour
         obstacleSpawner = FindFirstObjectByType<ObstacleSpawner>();
         Relocate();
     }
-    void Relocate() {
+    public void Relocate() {
+        gameObject.SetActive(true);
         float colliderWidth = spawnArea.GetComponent<BoxCollider2D>().bounds.size.x;
         float colliderHeight = spawnArea.GetComponent<BoxCollider2D>().bounds.size.y;
         gameObject.transform.position = new Vector2(
             Random.Range(spawnArea.transform.position.x - colliderWidth, spawnArea.transform.position.x) - 
-                varianceOnDistance/2 + Random.Range(0, varianceOnDistance) + initialDistanceFromPlayer, 
+                varianceOnDistance/2 + Random.Range(0, varianceOnDistance) + initialDistanceFromPlayer 
+                + ((hitCount / HITS_UNTIL_MAX_DISTANCE) * (MAX_DISTANCE - initialDistanceFromPlayer)), 
             Random.Range(spawnArea.transform.position.y - colliderHeight, spawnArea.transform.position.y)
         );
 
@@ -27,11 +31,12 @@ public class Target : MonoBehaviour
             obstacleSpawner.SpawnObstacles(); // Spawn new obstacles whenever the target is relocated
         }
     }
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        //if (collision.gameObject.CompareTag("ThrowableObject")) {
+    void OnCollisionEnter2D(Collision2D collision) {
+        gameObject.SetActive(false);
+        GameStateManager.instance.registerHit();
+        GameStateManager.instance.StartDelayedAction("Target", 1f, () => {
             Relocate();
-            increasedDistance += 1;
-        //}
+            hitCount += 1;
+        });
     }
 }

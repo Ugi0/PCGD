@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public Animator playerAnimator;
     public GameObject crosshair;
     public GameObject crosshairPosition;
+    public GameObject oldCrossHair;
 
     [Header("Settings")]
     public float poweringSpeed = 3.0f;
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour
     private PlayerState playerState;
     private GameObject currentThrowable;
     private Vector3 aimDirection;
+    private Vector3 oldAimDirection;
 
     void Awake()
     {
@@ -34,6 +36,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         ResetPlayer();
+        oldCrossHair = GameObject.Find("Crosshair_previous");
+        oldCrossHair.SetActive(false);
     }
 
     public void ResetPlayer()
@@ -117,6 +121,17 @@ public class PlayerController : MonoBehaviour
                 break;
         }
     }
+    public void showOldThrow(bool show = true) {
+        if (show) {
+            oldCrossHair.SetActive(true);
+            oldCrossHair.transform.SetParent(aimingHand.transform);
+            oldCrossHair.transform.SetLocalPositionAndRotation(crosshairPosition.transform.localPosition,crosshairPosition.transform.localRotation);
+            oldCrossHair.transform.localScale = crosshairPosition.transform.localScale;
+            oldCrossHair.transform.SetParent(null);
+        } else {
+            oldCrossHair.SetActive(false);
+        }
+    }
 
     void StartAiming()
     {
@@ -135,6 +150,9 @@ public class PlayerController : MonoBehaviour
         powerSlider.value = 0f;
         crosshair.transform.SetParent(null);
         playerAnimator.speed = poweringSpeed;
+
+        oldAimDirection = aimDirection;
+        showOldThrow();
 
         playerAnimator.SetBool("AimPhase", false);
         playerAnimator.SetBool("PowerPhase", true);
@@ -155,6 +173,8 @@ public class PlayerController : MonoBehaviour
 
         Vector2 throwDirection = CalculateThrowDirection();
         Throw(throwDirection);
+
+        GameStateManager.instance.registerThrow();
     }
 
     Vector2 CalculateThrowDirection()

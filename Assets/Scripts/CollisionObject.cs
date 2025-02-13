@@ -31,7 +31,7 @@ public class CollisionObject : MonoBehaviour
 
     public void HandleTrafficSignCollisionHit()
     {
-        ScoreManager.instance.AddPoints();
+        GameStateManager.instance.AddPoints();
         Debug.Log("Traffic sign hit!");
         AudioManager.Instance.PlaySFX("HitStreetSign");
     }
