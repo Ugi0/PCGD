@@ -2200,10 +2200,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f58e1ba079c7d4f01871612e707c715e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 2099611926}
-  highscoreText: {fileID: 2094324206}
-  score: 0
-  highscore: 0
 --- !u!114 &1474313534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2383,7 +2379,7 @@ Transform:
   m_GameObject: {fileID: 1604356024}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.27, y: 1.14, z: 0}
+  m_LocalPosition: {x: 6.7, y: -0.34, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2433,12 +2429,12 @@ SpriteRenderer:
   m_SortingLayerID: 2071429379
   m_SortingLayer: -1
   m_SortingOrder: 2
-  m_Sprite: {fileID: -3165738692045146039, guid: bdf89579af5d8af4fa63c26f5db32f74, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fd0593a4a5e9bb14db3a5604c45ed8cc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 500, y: 6}
+  m_Size: {x: 500, y: 10}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
