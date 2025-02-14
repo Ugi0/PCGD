@@ -27,6 +27,10 @@ public class ObstacleSpawner : MonoBehaviour
             SpawnObstacle();
         }
     }
+    public void Reset() {
+        targetSpawnCount = 0;
+        ClearOldObstacles();
+    }
 
     void SpawnObstacle()
     {

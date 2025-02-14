@@ -15,6 +15,11 @@ public class Target : MonoBehaviour
         obstacleSpawner = FindFirstObjectByType<ObstacleSpawner>();
         Relocate();
     }
+    public void Reset() {
+        hitCount = 0;
+        Relocate();
+        obstacleSpawner.Reset();
+    }
     public void Relocate() {
         gameObject.SetActive(true);
         float colliderWidth = spawnArea.GetComponent<BoxCollider2D>().bounds.size.x;

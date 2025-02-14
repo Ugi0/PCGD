@@ -34,11 +34,11 @@ public class GameStateManager : MonoBehaviour
         score = -10;
         AddPoints();
         // Fix this for when other objects are added
-        Target target = GameObject.FindGameObjectsWithTag("CollisionObject")[0].GetComponent<Target>();
+        Target target = GameObject.Find("ParkingSign_0").GetComponent<Target>();
         // TODO 
         // There seems to be a bug where after the first hit, the target is not found with this method, causing the sign to not relocate and birds not to respawn
         if (target != null) {
-            target.Relocate();
+            target.Reset();
         }        
     }
     public void ResetHealth() {
@@ -58,6 +58,7 @@ public class GameStateManager : MonoBehaviour
 
         if (highscore < score) {
             PlayerPrefs.SetInt("highscore", score);
+            highscoreText.text = "HIGHSCORE: " + score.ToString();
         }
     }
 
