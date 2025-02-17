@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      kaupunkitalot_versio_3_0: 7353996768392870645
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
