@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public GameObject throwingHand;
     public Slider powerSlider;
     public Animator playerAnimator;
+    public Animator skateboardAnimator;
     public GameObject crosshair;
     public GameObject crosshairPosition;
     public GameObject oldCrossHair;
@@ -40,11 +41,45 @@ public class PlayerController : MonoBehaviour
         oldCrossHair.SetActive(false);
     }
 
-    public void ResetPlayer()
+    public void StartSkating()
+    {
+        playerState = PlayerState.SKATING;
+        ResetPlayer();
+        playerAnimator.SetBool("SkatePhase", true);
+        GameStateManager.instance.StartTransition();
+    }
+
+
+    public void StopSkating()
+    {
+        GameStateManager.instance.StopDelayedAction("StopSkating");
+        playerAnimator.SetBool("SkatePhase", false);
+        BackgroundManager.instance.SkatingTransition(false);
+        BecomeIdle();
+    }
+
+    public void AnimateSkateboard(bool animate)
+    {
+        if(animate)
+        {
+            skateboardAnimator.speed = 1;
+        }
+        else
+        {
+            skateboardAnimator.speed = 0;
+        }
+    }
+
+    public void ResetThrow()
     {
         int randomIndex = Random.Range(0, throwables.Length); // for now
         currentThrowable = throwables[randomIndex];
         InstantiateThrowable();
+    }
+
+    public void ResetPlayer()
+    {
+        AnimateSkateboard(false);
         crosshair.transform.SetParent(aimingHand.transform);
         crosshair.transform.SetLocalPositionAndRotation(crosshairPosition.transform.localPosition,crosshairPosition.transform.localRotation);
         crosshair.transform.localScale = crosshairPosition.transform.localScale;
@@ -52,14 +87,18 @@ public class PlayerController : MonoBehaviour
         aimingHand.SetActive(false);
         currentPower = 0f;
         powerSlider.value = 0f;
-        BecomeIdle();
+        playerAnimator.SetBool("ThrowPhase", false);
+        if(playerState != PlayerState.SKATING)
+        {
+            BecomeIdle();
+        }
     }
 
     void BecomeIdle()
     {
         playerState = PlayerState.IDLE;
-        playerAnimator.SetBool("ThrowPhase", false);
         playerAnimator.speed = 1.0f;
+        ResetThrow();
     }
 
     void Update()
@@ -121,6 +160,7 @@ public class PlayerController : MonoBehaviour
                 break;
         }
     }
+
     public void showOldThrow(bool show = true) {
         if (show) {
             oldCrossHair.SetActive(true);
@@ -207,5 +247,5 @@ public enum PlayerState
     AIMING,
     POWERING,
     THROWING,
-    WALKING,
+    SKATING,
 }

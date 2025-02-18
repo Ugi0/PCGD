@@ -5,7 +5,6 @@ public class ThrowableObject : MonoBehaviour
 {
     private Rigidbody2D rb;
     public ThrowableData data;
-    private bool hitGround; //makes sure that object doesn't hit ground and reset player multiple times
 
     public void Initialize()
     {
@@ -13,7 +12,6 @@ public class ThrowableObject : MonoBehaviour
 
         rb.gravityScale = data.gravityScale;
         rb.linearDamping = data.drag;
-        hitGround = false;
     }
 
     public void Launch(Vector2 direction)
@@ -54,7 +52,7 @@ public class ThrowableObject : MonoBehaviour
         }
         CollisionObject collisionObject = hitObject.GetComponent<CollisionObject>();
         
-        if (collisionObject != null && !hitGround)
+        if (collisionObject != null)
         {
             HandleObjectHit(collisionObject);
         }
@@ -66,13 +64,6 @@ public class ThrowableObject : MonoBehaviour
             Instantiate(data.hitEffectPrefab, transform.position, Quaternion.identity);
 
         collisionObject.HandleHit();
-
-        if(collisionObject.collisionType == CollisionType.GROUND)
-        {
-            hitGround = true;
-            Destroy(gameObject, 3f);
-        }
+        Destroy(gameObject, .5f);
     }
-
-
 }

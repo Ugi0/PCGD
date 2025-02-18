@@ -6,6 +6,7 @@ using System;
 public class GameStateManager : MonoBehaviour
 {
     public static GameStateManager instance;
+    
     private int Health = 3;
 
     public Text scoreText;
@@ -67,7 +68,7 @@ public class GameStateManager : MonoBehaviour
         AudioManager.Instance.PlayMusic("Theme");
     }
     public void registerThrow() {
-        StartDelayedAction("Throw", 1f, () => {
+        StartDelayedAction("Throw", .5f, () => {
             ReduceHealth();
             Debug.Log(Health + " health remaining");
         });
@@ -75,7 +76,25 @@ public class GameStateManager : MonoBehaviour
     public void registerHit() {
         StopDelayedAction("Throw");
         ResetHealth();
-        GameObject.Find("Player").GetComponent<PlayerController>().showOldThrow(false);
+        PlayerController.instance.showOldThrow(false);
+        PlayerController.instance.StartSkating();
+    }
+
+    public void StartTransition()
+    {
+        StartDelayedAction("StartSkating", .5f, () => {
+            PlayerController.instance.AnimateSkateboard(true);
+            BackgroundManager.instance.SkatingTransition(true);
+            StopTransition();
+        });
+    }
+
+    public void StopTransition()
+    {
+        StartDelayedAction("StopSkating", 1f, () => {
+            PlayerController.instance.AnimateSkateboard(false);
+            PlayerController.instance.StopSkating();
+        });
     }
 
     public void StartDelayedAction(string id, float delay, System.Action action)
