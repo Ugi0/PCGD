@@ -52,6 +52,10 @@ public class AudioManager : MonoBehaviour
 
         else
         {
+            if(s.name == "Throw")
+            {
+                sfxSource.Stop(); //makes sure the previous sounds aren't playing when making new throw to stop audio from breaking
+            }
             sfxSource.PlayOneShot(s.clip);
         }
     }
@@ -96,6 +100,5 @@ public class AudioManager : MonoBehaviour
             musicSource.Play(); // Play from the beginning
         }
     }
-
 
 }
