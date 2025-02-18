@@ -12,9 +12,17 @@ public class GameStateManager : MonoBehaviour
     public Text scoreText;
     public Text highscoreText;
 
+    public GameObject healthSpritePrefab;
+    public Transform healthContainer;
+    public float healthSpacing = 20f;
+    public float leftPadding = 20f;
+
+
     int score = 0;
     int highscore = 0;
     private Dictionary<string, Coroutine> activeDelays = new Dictionary<string, Coroutine>();
+    private List<GameObject> rockIcons = new List<GameObject>();
+
 
     private void Awake() {
         instance = this;
@@ -28,6 +36,7 @@ public class GameStateManager : MonoBehaviour
         highscoreText.text = "HIGHSCORE: " + highscore.ToString();
 
         StartMusic();
+        ResetHealth();
     }
     public void Reset() {
         Debug.Log("Resetting game state");
@@ -40,10 +49,12 @@ public class GameStateManager : MonoBehaviour
         // There seems to be a bug where after the first hit, the target is not found with this method, causing the sign to not relocate and birds not to respawn
         if (target != null) {
             target.Reset();
-        }        
+        }
+        UpdateRockDisplay(Health);
     }
     public void ResetHealth() {
         Health = 3;
+        UpdateRockDisplay(Health);
     }
     public void ReduceHealth() {
         Health -= 1;
@@ -51,6 +62,7 @@ public class GameStateManager : MonoBehaviour
             // Game over
             Reset();
         }
+        UpdateRockDisplay(Health);
     }
 
     public void AddPoints() {
@@ -125,5 +137,27 @@ public class GameStateManager : MonoBehaviour
         activeDelays.Remove(id);
 
         action?.Invoke();
+    }
+
+    public void UpdateRockDisplay(int rockCount)
+    {
+        // Remove extra rocks if necessary
+        while (rockIcons.Count > rockCount)
+        {
+            Destroy(rockIcons[rockIcons.Count - 1]);
+            rockIcons.RemoveAt(rockIcons.Count - 1);
+        }
+
+        // Add more rocks if needed
+        while (rockIcons.Count < rockCount)
+        {
+            GameObject newRock = Instantiate(healthSpritePrefab, healthContainer);
+            RectTransform rt = newRock.GetComponent<RectTransform>();
+
+            // Set the rock's position correctly inside the container
+            float startX = leftPadding + (rockIcons.Count * healthSpacing);
+            rt.anchoredPosition = new Vector2(startX, 0);
+            rockIcons.Add(newRock);
+        }
     }
 }
