@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      kolmio_0: -2673905385967052026
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

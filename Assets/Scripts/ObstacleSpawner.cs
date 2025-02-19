@@ -9,7 +9,7 @@ public class ObstacleSpawner : MonoBehaviour
     public GameObject obstaclePrefab; // Prefab to spawn
     public Vector3 obstacleSpawnArea = new Vector3(10f, 0, 10f); // Spawn range
     public int startingLevel; //The number when the obstacles start spawning
-    private int targetSpawnCount = 0; // Track the number of targets spawned
+    private float targetSpawnCount = 0; // Track the number of targets spawned
 
     public GameObject targetContainer;
     public GameObject[] targets;
@@ -24,8 +24,6 @@ public class ObstacleSpawner : MonoBehaviour
     private Vector2 originalSpawnPosition;
 
     [SerializeField] float initialDistanceFromPlayer = 2;
-    [SerializeField] float varianceOnDistance = 2;
-
 
     private void Start()
     {
@@ -43,12 +41,15 @@ public class ObstacleSpawner : MonoBehaviour
         }
 
         // Move the spawn zone forward progressively
-        targetSpawnArea.transform.position = new Vector2(
-            targetSpawnArea.transform.position.x + initialDistanceFromPlayer +
-            ((targetSpawnCount / HITS_UNTIL_MAX_DISTANCE) * (MAX_DISTANCE - initialDistanceFromPlayer)) +
-            Random.Range(-varianceOnDistance / 2, varianceOnDistance / 2),
-            targetSpawnArea.transform.position.y
-        );
+
+        float xCord = Mathf.Min(MAX_DISTANCE, initialDistanceFromPlayer + 
+            (targetSpawnCount / HITS_UNTIL_MAX_DISTANCE * (MAX_DISTANCE - initialDistanceFromPlayer)));
+        spawnCollider.size = new Vector2(xCord, 
+            spawnCollider.size.y);
+
+        Vector2 currentOffset = spawnCollider.offset;
+        currentOffset.x = 1 + 0.5f * targetSpawnCount; // Fix the offset of the left edge
+        spawnCollider.offset = currentOffset;
 
         float minX = spawnCollider.bounds.min.x;
         float maxX = spawnCollider.bounds.max.x;
@@ -61,7 +62,9 @@ public class ObstacleSpawner : MonoBehaviour
         // Keep trying until a suitable target is found
         for (int i = 0; i < 10; i++) // Arbitrary number of attempts
         {
-            spawnPosition = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
+            // Take max of 2 random numbers to weight the spawn towards the end
+            xCord = Mathf.Max(Random.Range(minX, maxX), Random.Range(minX, maxX));
+            spawnPosition = new Vector2(xCord, Random.Range(minY, maxY));
             randomTarget = GetValidTarget(spawnPosition);
             if (randomTarget != null)
                 break;

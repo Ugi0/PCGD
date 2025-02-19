@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      katulamppu_rikki_0: 7786593528022762780
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

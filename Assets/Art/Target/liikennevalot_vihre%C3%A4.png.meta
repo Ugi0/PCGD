@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      liikennevalot_vihre%C3%A4_0: -4200469574706978921
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

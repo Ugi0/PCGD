@@ -2311,8 +2311,7 @@ MonoBehaviour:
   groundCollider: {fileID: 1212653728}
   sidewalkCollider: {fileID: 500430042}
   houseCollider: {fileID: 733774926}
-  initialDistanceFromPlayer: 1
-  varianceOnDistance: 2
+  initialDistanceFromPlayer: 2
 --- !u!4 &1107219171
 Transform:
   m_ObjectHideFlags: 0
@@ -3215,7 +3214,7 @@ Transform:
   m_GameObject: {fileID: 1714949466}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.39, y: 2.26, z: 0}
+  m_LocalPosition: {x: -5.24, y: 2.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3255,7 +3254,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.85, y: -3.1944816}
+  m_Offset: {x: 1, y: -2.4}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -3265,7 +3264,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.60556173, y: 2.1069188}
+  m_Size: {x: 0.7, y: 3.467506}
   m_EdgeRadius: 0
 --- !u!1 &1795344671
 GameObject:

@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      keltainentalo_0: 7021803711836832798
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

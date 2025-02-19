@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      liikennevalot_keltainen_0: -7586432591035762099
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

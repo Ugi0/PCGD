@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      katuvalo_0: 8583816457908863309
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

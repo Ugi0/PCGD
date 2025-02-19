@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      auto_rikki_0: 6909565156068655908
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
