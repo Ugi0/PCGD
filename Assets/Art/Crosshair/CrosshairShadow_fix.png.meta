@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      CrosshairShadow_fix_0: -2881944100734068273
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

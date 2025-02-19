@@ -14,7 +14,6 @@ public class ThrowableData : ScriptableObject
 
     [Header("Effects")]
     public GameObject hitEffectPrefab;
-    public AudioClip throwSound;
 }
 
 public enum ThrowableType

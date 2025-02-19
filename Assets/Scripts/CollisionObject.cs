@@ -3,13 +3,18 @@ using UnityEngine;
 public class CollisionObject : MonoBehaviour
 {
     public CollisionType collisionType = CollisionType.NONE;
+    public Sprite brokenSprite;
 
     public void HandleHit()
     {
-        switch(collisionType)
+
+        if (GetComponent<SpriteRenderer>() != null)
+            GetComponent<SpriteRenderer>().sprite = brokenSprite;
+
+        switch (collisionType)
         {
             case CollisionType.GROUND:
-                HandleTrafficCollisionHit();
+                HandleGroundCollisionHit();
                 break;
             case CollisionType.TRAFFIC_SIGN:
                 HandleTrafficSignCollisionHit();
@@ -23,7 +28,7 @@ public class CollisionObject : MonoBehaviour
         }
     }
 
-    public void HandleTrafficCollisionHit()
+    public void HandleGroundCollisionHit()
     {
         Debug.Log("Ground hit!");
         PlayerController.instance.ResetPlayer();

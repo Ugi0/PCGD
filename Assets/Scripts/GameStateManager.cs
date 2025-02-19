@@ -17,7 +17,6 @@ public class GameStateManager : MonoBehaviour
     public float healthSpacing = 20f;
     public float leftPadding = 20f;
 
-
     int score = 0;
     int highscore = 0;
     private Dictionary<string, Coroutine> activeDelays = new Dictionary<string, Coroutine>();
@@ -41,16 +40,10 @@ public class GameStateManager : MonoBehaviour
     public void Reset() {
         Debug.Log("Resetting game state");
         ResetHealth();
-        score = -10;
+        score = -1;
         AddPoints();
-        // Fix this for when other objects are added
-        Target target = GameObject.Find("ParkingSign_0").GetComponent<Target>();
-        // TODO 
-        // There seems to be a bug where after the first hit, the target is not found with this method, causing the sign to not relocate and birds not to respawn
-        if (target != null) {
-            target.Reset();
-        }
         UpdateRockDisplay(Health);
+        ObstacleSpawner.instance.Reset();
     }
     public void ResetHealth() {
         Health = 3;
@@ -58,7 +51,7 @@ public class GameStateManager : MonoBehaviour
     }
     public void ReduceHealth() {
         Health -= 1;
-        if (Health == 0) {
+        if (Health <= 0) {
             // Game over
             Reset();
         }
@@ -66,7 +59,7 @@ public class GameStateManager : MonoBehaviour
     }
 
     public void AddPoints() {
-        score += 10;
+        score += 1;
         scoreText.text = score.ToString() + " POINTS";
 
         if (highscore < score) {
@@ -80,7 +73,7 @@ public class GameStateManager : MonoBehaviour
         AudioManager.Instance.PlayMusic("Theme");
     }
     public void registerThrow() {
-        StartDelayedAction("Throw", .5f, () => {
+        StartDelayedAction("Throw", 2f, () => {
             ReduceHealth();
             Debug.Log(Health + " health remaining");
         });
@@ -97,7 +90,8 @@ public class GameStateManager : MonoBehaviour
         StartDelayedAction("StartSkating", .5f, () => {
             PlayerController.instance.AnimateSkateboard(true);
             BackgroundManager.instance.SkatingTransition(true);
-            StopTransition();
+            ObstacleSpawner.instance.ClearOldObstacles();
+           StopTransition();
         });
     }
 
@@ -106,6 +100,8 @@ public class GameStateManager : MonoBehaviour
         StartDelayedAction("StopSkating", 1f, () => {
             PlayerController.instance.AnimateSkateboard(false);
             PlayerController.instance.StopSkating();
+            ObstacleSpawner.instance.SpawnTargets();
+            ObstacleSpawner.instance.SpawnObstacles();
         });
     }
 
