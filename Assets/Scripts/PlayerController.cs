@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     public GameObject[] throwables;
     public GameObject aimingHand;
     public GameObject throwingHand;
-    public Slider powerSlider;
+    public CustomSlider powerSlider;
     public Animator playerAnimator;
     public Animator skateboardAnimator;
     public GameObject crosshair;
@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour
         ResetPlayer();
         playerAnimator.SetBool("SkatePhase", true);
         GameStateManager.instance.StartTransition();
+        powerSlider.HidePrevious();
     }
 
 
@@ -86,7 +87,7 @@ public class PlayerController : MonoBehaviour
         powerBar.SetActive(false);
         aimingHand.SetActive(false);
         currentPower = 0f;
-        powerSlider.value = 0f;
+        powerSlider.SetCurrent(0f);
         playerAnimator.SetBool("ThrowPhase", false);
         if(playerState != PlayerState.SKATING)
         {
@@ -140,7 +141,7 @@ public class PlayerController : MonoBehaviour
                 powerIncreasing = true;
             }
         }
-        powerSlider.value = currentPower;
+        powerSlider.SetCurrent(currentPower);
     }
 
     void OnMouseUp()
@@ -185,9 +186,9 @@ public class PlayerController : MonoBehaviour
     {
         playerState = PlayerState.POWERING;
         powerBar.SetActive(true);
+        powerSlider.SetCurrent(0f);
         currentPower = 0f;
         powerIncreasing = true;
-        powerSlider.value = 0f;
         crosshair.transform.SetParent(null);
         playerAnimator.speed = poweringSpeed;
 
@@ -206,6 +207,8 @@ public class PlayerController : MonoBehaviour
         playerAnimator.speed = 2.0f;
         playerAnimator.SetBool("PowerPhase", false);
         playerAnimator.SetBool("ThrowPhase", true);
+
+        powerSlider.SetPrevious(currentPower);
         
         Rigidbody2D rigidbody2D = currentThrowable.GetComponent<Rigidbody2D>();
         rigidbody2D.constraints = RigidbodyConstraints2D.None; //removes throwable object's rigidbody constrains to allow it simulate physics
