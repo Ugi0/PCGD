@@ -73,3 +73,7 @@ crashlytics-build.properties
 
 # VSCode
 .vscode
+
+# AndroidBuild
+.utmp
+*_DoNotShip

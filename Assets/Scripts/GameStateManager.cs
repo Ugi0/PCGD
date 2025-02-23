@@ -96,7 +96,7 @@ public class GameStateManager : MonoBehaviour
     public void StopTransition()
     {
         StopDelayedAction("StartSkating");
-        StartDelayedAction("StopSkating", .5f, () => {
+        StartDelayedAction("StopSkating", 1f, () => {
             PlayerController.instance.StopSkating();
             ObstacleSpawner.instance.SpawnTargets();
             ObstacleSpawner.instance.SpawnObstacles();
