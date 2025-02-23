@@ -1,6 +1,4 @@
-using System.Runtime.CompilerServices;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -52,11 +50,11 @@ public class PlayerController : MonoBehaviour
 
 
     public void StopSkating()
-    {
+    {   
+        AnimateSkateboard(false);
         GameStateManager.instance.StopDelayedAction("StopSkating");
         playerAnimator.SetBool("SkatePhase", false);
         BackgroundManager.instance.SkatingTransition(false);
-        BecomeIdle();
     }
 
     public void AnimateSkateboard(bool animate)
@@ -95,7 +93,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void BecomeIdle()
+    public void BecomeIdle()
     {
         playerState = PlayerState.IDLE;
         playerAnimator.speed = 1.0f;
@@ -157,6 +155,10 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case PlayerState.POWERING:
+                StartThrowing();
+                break;
+
+            case PlayerState.WAITING:
                 ExecuteThrow();
                 break;
         }
@@ -199,6 +201,12 @@ public class PlayerController : MonoBehaviour
         playerAnimator.SetBool("PowerPhase", true);
     }
 
+    private void StartThrowing()
+    {
+        playerState = PlayerState.WAITING;
+        playerAnimator.speed = 0;
+    }
+
     void ExecuteThrow()
     {
         playerState = PlayerState.THROWING;
@@ -216,8 +224,6 @@ public class PlayerController : MonoBehaviour
 
         Vector2 throwDirection = CalculateThrowDirection();
         Throw(throwDirection);
-
-        GameStateManager.instance.registerThrow();
     }
 
     Vector2 CalculateThrowDirection()
@@ -250,5 +256,6 @@ public enum PlayerState
     AIMING,
     POWERING,
     THROWING,
+    WAITING,
     SKATING,
 }

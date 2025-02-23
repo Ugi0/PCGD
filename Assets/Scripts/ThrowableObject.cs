@@ -5,6 +5,7 @@ public class ThrowableObject : MonoBehaviour
 {
     private Rigidbody2D rb;
     public ThrowableData data;
+    private bool alreadyHit;
 
     public void Initialize()
     {
@@ -12,6 +13,7 @@ public class ThrowableObject : MonoBehaviour
 
         rb.gravityScale = data.gravityScale;
         rb.linearDamping = data.drag;
+        alreadyHit = false;
     }
 
     public void Launch(Vector2 direction)
@@ -52,7 +54,7 @@ public class ThrowableObject : MonoBehaviour
         }
         CollisionObject collisionObject = hitObject.GetComponent<CollisionObject>();
         
-        if (collisionObject != null)
+        if (collisionObject != null && !alreadyHit)
         {
             HandleObjectHit(collisionObject);
         }
@@ -64,6 +66,7 @@ public class ThrowableObject : MonoBehaviour
             Instantiate(data.hitEffectPrefab, transform.position, Quaternion.identity);
 
         collisionObject.HandleHit();
+        alreadyHit = true;
         Destroy(gameObject, .5f);
     }
 }

@@ -72,14 +72,12 @@ public class GameStateManager : MonoBehaviour
     {
         AudioManager.Instance.PlayMusic("Theme");
     }
-    public void registerThrow() {
-        StartDelayedAction("Throw", 2f, () => {
-            ReduceHealth();
-            Debug.Log(Health + " health remaining");
-        });
+
+    public void HitGround() {
+        ReduceHealth();
+        Debug.Log(Health + " health remaining");
     }
     public void registerHit() {
-        StopDelayedAction("Throw");
         ResetHealth();
         PlayerController.instance.showOldThrow(false);
         PlayerController.instance.StartSkating();
@@ -98,10 +96,17 @@ public class GameStateManager : MonoBehaviour
     public void StopTransition()
     {
         StartDelayedAction("StopSkating", 1f, () => {
-            PlayerController.instance.AnimateSkateboard(false);
             PlayerController.instance.StopSkating();
             ObstacleSpawner.instance.SpawnTargets();
             ObstacleSpawner.instance.SpawnObstacles();
+            DelayedBecomeIdle();
+        });
+    }
+
+    public void DelayedBecomeIdle()
+    {
+        StartDelayedAction("BecomeIdle", .5f, () => {
+            PlayerController.instance.BecomeIdle();
         });
     }
 

@@ -28,7 +28,7 @@ public class MainMenu : MonoBehaviour
 
         DisplayHighScore();
         // Find AudioManager
-        audioManager = FindObjectOfType<AudioManager>();
+        audioManager = AudioManager.Instance;
 
         if (audioManager == null)
         {

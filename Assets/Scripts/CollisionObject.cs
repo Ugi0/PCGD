@@ -30,6 +30,7 @@ public class CollisionObject : MonoBehaviour
 
     public void HandleGroundCollisionHit()
     {
+        GameStateManager.instance.HitGround();
         Debug.Log("Ground hit!");
         PlayerController.instance.ResetPlayer();
     }
