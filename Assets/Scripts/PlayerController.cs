@@ -1,4 +1,3 @@
-using System.Linq.Expressions;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -45,7 +44,6 @@ public class PlayerController : MonoBehaviour
     public void StartSkating()
     {
         playerState = PlayerState.SKATING;
-        ResetPlayer();
         playerAnimator.SetBool("SkatePhase", true);
         GameStateManager.instance.StartTransition();
         powerSlider.HidePrevious();
@@ -55,7 +53,6 @@ public class PlayerController : MonoBehaviour
     public void StopSkating()
     {   
         AnimateSkateboard(false);
-        GameStateManager.instance.StopDelayedAction("StopSkating");
         playerAnimator.SetBool("SkatePhase", false);
         BackgroundManager.instance.SkatingTransition(false);
     }
@@ -77,6 +74,7 @@ public class PlayerController : MonoBehaviour
         int randomIndex = Random.Range(0, throwables.Length); // for now
         currentThrowable = throwables[randomIndex];
         InstantiateThrowable();
+        GameStateManager.instance.StopDelayedAction("AllowThrow");
     }
 
     public void ResetPlayer()
@@ -145,7 +143,7 @@ public class PlayerController : MonoBehaviour
         powerSlider.SetCurrent(currentPower);
     }
 
-    void OnMouseUp()
+    public void HandleInput()
     {
         if(allowThrow)
         {

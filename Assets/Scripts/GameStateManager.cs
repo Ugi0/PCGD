@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
-using System;
 public class GameStateManager : MonoBehaviour
 {
     public static GameStateManager instance;
@@ -85,6 +84,7 @@ public class GameStateManager : MonoBehaviour
 
     public void StartTransition()
     {
+        PlayerController.instance.ResetPlayer();
         StartDelayedAction("StartSkating", .5f, () => {
             PlayerController.instance.AnimateSkateboard(true);
             BackgroundManager.instance.SkatingTransition(true);
@@ -95,7 +95,8 @@ public class GameStateManager : MonoBehaviour
 
     public void StopTransition()
     {
-        StartDelayedAction("StopSkating", 1f, () => {
+        StopDelayedAction("StartSkating");
+        StartDelayedAction("StopSkating", .5f, () => {
             PlayerController.instance.StopSkating();
             ObstacleSpawner.instance.SpawnTargets();
             ObstacleSpawner.instance.SpawnObstacles();
@@ -105,8 +106,10 @@ public class GameStateManager : MonoBehaviour
 
     public void DelayedBecomeIdle()
     {
-        StartDelayedAction("BecomeIdle", .5f, () => {
+        StopDelayedAction("StopSkating");
+        StartDelayedAction("BecomeIdle", .6f, () => {
             PlayerController.instance.BecomeIdle();
+            StopDelayedAction("BecomeIdle");
         });
     }
 
