@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
     private GameObject currentThrowable;
     private Vector3 aimDirection;
     private Vector3 oldAimDirection;
+    private bool allowThrow;
 
     void Awake()
     {
@@ -37,6 +39,7 @@ public class PlayerController : MonoBehaviour
         ResetPlayer();
         oldCrossHair = GameObject.Find("Crosshair_previous");
         oldCrossHair.SetActive(false);
+        allowThrow = true;
     }
 
     public void StartSkating()
@@ -144,24 +147,42 @@ public class PlayerController : MonoBehaviour
 
     void OnMouseUp()
     {
-        switch (playerState)
+        if(allowThrow)
         {
-            case PlayerState.IDLE:
-                StartAiming();
-                break;
+            switch (playerState)
+            {
+                case PlayerState.IDLE:
+                    StartAiming();
+                    break;
 
-            case PlayerState.AIMING:
-                LockAim();
-                break;
+                case PlayerState.AIMING:
+                    LockAim();
+                    break;
 
-            case PlayerState.POWERING:
-                StartThrowing();
-                break;
+                case PlayerState.POWERING:
+                    StartThrowing();
+                    break;
 
-            case PlayerState.WAITING:
-                ExecuteThrow();
-                break;
+                case PlayerState.WAITING:
+                    ExecuteThrow();
+                    break;
+            }
+            StartDelayThrow();
         }
+    }
+    
+    private void StartDelayThrow()
+    {
+        if(playerState != PlayerState.SKATING && playerState != PlayerState.THROWING)
+        {
+            allowThrow = false;
+            GameStateManager.instance.DelayThrow();
+        }
+    }
+
+    public void SetAllowThrow(bool value)
+    {
+        allowThrow = value;
     }
 
     public void showOldThrow(bool show = true) {

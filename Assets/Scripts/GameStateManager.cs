@@ -110,6 +110,13 @@ public class GameStateManager : MonoBehaviour
         });
     }
 
+    public void DelayThrow()
+    {
+        StartDelayedAction("AllowThrow", .2f, () => {
+            PlayerController.instance.SetAllowThrow(true);
+        });
+    }
+
     public void StartDelayedAction(string id, float delay, System.Action action)
     {
         if (activeDelays.ContainsKey(id))
