@@ -30,7 +30,7 @@ public class GameStateManager : MonoBehaviour
     void Start()
     {
         highscore = PlayerPrefs.GetInt("highscore", 0);
-        scoreText.text = score.ToString() + " POINTS";
+        scoreText.text = score.ToString();
         //highscoreText.text = "HIGHSCORE: " + highscore.ToString();
 
         StartMusic();
@@ -59,7 +59,7 @@ public class GameStateManager : MonoBehaviour
 
     public void AddPoints() {
         score += 1;
-        scoreText.text = score.ToString() + " POINTS";
+        scoreText.text = score.ToString();
 
         if (highscore < score) {
             PlayerPrefs.SetInt("highscore", score);
