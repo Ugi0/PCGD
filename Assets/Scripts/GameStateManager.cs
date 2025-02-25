@@ -63,7 +63,6 @@ public class GameStateManager : MonoBehaviour
 
         if (highscore < score) {
             PlayerPrefs.SetInt("highscore", score);
-            highscoreText.text = "HIGHSCORE: " + score.ToString();
         }
     }
 
