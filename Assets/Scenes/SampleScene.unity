@@ -3245,6 +3245,7 @@ MonoBehaviour:
   healthContainer: {fileID: 1816284078}
   healthSpacing: 60
   leftPadding: 40
+  score: 0
 --- !u!1 &1664844571
 GameObject:
   m_ObjectHideFlags: 0

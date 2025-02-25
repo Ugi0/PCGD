@@ -16,7 +16,7 @@ public class GameStateManager : MonoBehaviour
     public float healthSpacing = 20f;
     public float leftPadding = 20f;
 
-    int score = 0;
+    public int score = 0;
     int highscore = 0;
     private Dictionary<string, Coroutine> activeDelays = new Dictionary<string, Coroutine>();
     private List<GameObject> rockIcons = new List<GameObject>();
