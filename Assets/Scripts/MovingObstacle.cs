@@ -31,6 +31,7 @@ public class MovingObstacle : MonoBehaviour
     if (collision.gameObject.CompareTag("ThrowableObject"))
     {
         animator.SetBool("isHit", true);
+        animator.SetBool("isFallen", true);
     }
 }
 }
