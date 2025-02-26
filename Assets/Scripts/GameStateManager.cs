@@ -99,8 +99,8 @@ public class GameStateManager : MonoBehaviour
         StartDelayedAction("StopSkating", 1f, () => {
             AudioManager.Instance.StopLoopingSFX();
             PlayerController.instance.StopSkating();
-            ObstacleSpawner.instance.SpawnTargets();
-            ObstacleSpawner.instance.SpawnObstacles();
+            float targetDistance = ObstacleSpawner.instance.SpawnTargets();
+            ObstacleSpawner.instance.SpawnObstacles(targetDistance);
             DelayedBecomeIdle();
         });
     }

@@ -59,7 +59,10 @@ public class ThrowableObject : MonoBehaviour
         else if(hitObject.CompareTag("Obstacle"))
         {
             Debug.Log("Bird hit!");
+            hitObject.GetComponent<MovingObstacle>().StopMoving();
+            hitObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
             AudioManager.Instance.PlaySFX("BirdHit");
+            hitObject.GetComponent<CollisionObject>().HandleGroundCollisionHit();
         }
     }
 

@@ -7,7 +7,6 @@ public class ObstacleSpawner : MonoBehaviour
     public static ObstacleSpawner instance;
 
     public GameObject obstaclePrefab; // Prefab to spawn
-    public Vector3 obstacleSpawnArea = new Vector3(10f, 0, 10f); // Spawn range
     public int startingLevel; //The number when the obstacles start spawning
     private float targetSpawnCount = 0; // Track the number of targets spawned
 
@@ -19,7 +18,7 @@ public class ObstacleSpawner : MonoBehaviour
     public BoxCollider2D sidewalkCollider;
     public BoxCollider2D houseCollider;
 
-    float MAX_DISTANCE = 17f;
+    float MAX_DISTANCE = 15f;
     int HITS_UNTIL_MAX_DISTANCE = 15;
     private Vector2 originalSpawnPosition;
 
@@ -31,13 +30,13 @@ public class ObstacleSpawner : MonoBehaviour
         SpawnTargets();
     }
 
-    public void SpawnTargets()
+    public float SpawnTargets()
     {
         BoxCollider2D spawnCollider = targetSpawnArea.GetComponent<BoxCollider2D>();
         if (spawnCollider == null)
         {
             Debug.LogError("Spawn area does not have a BoxCollider2D!");
-            return;
+            return 0;
         }
 
         // Move the spawn zone forward progressively
@@ -48,7 +47,7 @@ public class ObstacleSpawner : MonoBehaviour
             spawnCollider.size.y);
 
         Vector2 currentOffset = spawnCollider.offset;
-        currentOffset.x = 1 + 0.5f * targetSpawnCount; // Fix the offset of the left edge
+        currentOffset.x = 0.5f + 0.5f * Mathf.Min(targetSpawnCount, HITS_UNTIL_MAX_DISTANCE); // Fix the offset of the left edge
         spawnCollider.offset = currentOffset;
 
         float minX = spawnCollider.bounds.min.x;
@@ -78,6 +77,7 @@ public class ObstacleSpawner : MonoBehaviour
         {
             Debug.LogWarning("No suitable target found to spawn!");
         }
+        return xCord;
     }
 
     private GameObject GetValidTarget(Vector2 spawnPosition)
@@ -110,7 +110,7 @@ public class ObstacleSpawner : MonoBehaviour
         instance = this;
     }
 
-    public void SpawnObstacles()
+    public void SpawnObstacles(float targetDistance)
     {
 
         targetSpawnCount++; // Increase the counter every time a new target spawns
@@ -124,11 +124,11 @@ public class ObstacleSpawner : MonoBehaviour
         // Remove all previous obstacles before spawning new ones
         ClearOldObstacles();
 
-        int obstacleCount = Random.Range(1, 4); // Randomize between 1 and 3
+        int obstacleCount = Random.Range(1, (int) (targetSpawnCount / 5) + 1); // Randomize between 1 and (rounds / 5) obstacles
 
         for (int i = 0; i < obstacleCount; i++)
         {
-            SpawnObstacle();
+            SpawnObstacle(targetDistance);
         }
     }
     public void Reset() {
@@ -143,12 +143,18 @@ public class ObstacleSpawner : MonoBehaviour
         });
         }
 
-    void SpawnObstacle()
+    void SpawnObstacle(float targetDistance)
     {
-        Vector3 spawnPosition = new Vector3(
-            Random.Range(-obstacleSpawnArea.x, obstacleSpawnArea.x),
-            Random.Range(1f, 5f), // Random height
-            Random.Range(-obstacleSpawnArea.z, obstacleSpawnArea.z)
+        BoxCollider2D spawnCollider = targetSpawnArea.GetComponent<BoxCollider2D>();
+
+        float minX = spawnCollider.bounds.min.x;
+        float maxX = spawnCollider.bounds.max.x;
+        float minY = spawnCollider.bounds.min.y;
+        float maxY = spawnCollider.bounds.max.y;
+
+        Vector2 spawnPosition = new Vector2(
+            Random.Range(minX, targetDistance),
+            Random.Range(minY, maxY)
         );
 
         Instantiate(obstaclePrefab, spawnPosition, Quaternion.identity).tag = "Obstacle"; // Ensure the obstacle has the right tag
@@ -171,11 +177,5 @@ public class ObstacleSpawner : MonoBehaviour
         {
             Destroy(obj.gameObject);
         }
-    }
-
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(transform.position, obstacleSpawnArea * 2);
     }
 }

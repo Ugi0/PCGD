@@ -34,6 +34,7 @@ public class CollisionObject : MonoBehaviour
     public void HandleGroundCollisionHit()
     {
         GameStateManager.instance.HitGround();
+        GameObject.FindGameObjectWithTag("ThrowableObject").SetActive(false);
         Debug.Log("Ground hit!");
         PlayerController.instance.ResetPlayer();
     }
@@ -48,6 +49,7 @@ public class CollisionObject : MonoBehaviour
     public void HandleWindowCollisionHit()
     {
         GameStateManager.instance.AddPoints();
+        GameObject.FindGameObjectWithTag("ThrowableObject").SetActive(false);
         Debug.Log("Window hit!");
         AudioManager.Instance.PlaySFX("HitGlass");
     }

@@ -20,6 +20,11 @@ public class MovingObstacle : MonoBehaviour
         float newY = startPosition.y + Mathf.Sin(Time.time * speed) * height;
         transform.position = new Vector3(startPosition.x, newY, startPosition.z);
     }
+    public void StopMoving()
+    {
+        Debug.Log("Stop moving");
+        enabled = false;
+    }
 
     void OnCollisionEnter2D(Collision2D collision)
 {

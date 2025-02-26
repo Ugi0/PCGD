@@ -25,7 +25,6 @@ public class CustomSlider : MonoBehaviour
         Vector3 pos = fillRectTransform.localPosition;
         pos.x = 77 * ( (value - 0.5f) * 2 );
         pos.z = -1;
-        Debug.Log(77 * ( (value - 0.5f) * 2 ));
         fillRectTransform.localPosition = pos;
     }
     public void HidePrevious() {
