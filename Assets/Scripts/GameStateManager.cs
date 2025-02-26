@@ -85,6 +85,7 @@ public class GameStateManager : MonoBehaviour
     {
         PlayerController.instance.ResetPlayer();
         StartDelayedAction("StartSkating", .5f, () => {
+            AudioManager.Instance.PlayLoopingSFX("Skateboarding");
             PlayerController.instance.AnimateSkateboard(true);
             BackgroundManager.instance.SkatingTransition(true);
             ObstacleSpawner.instance.ClearOldObstacles();
@@ -96,6 +97,7 @@ public class GameStateManager : MonoBehaviour
     {
         StopDelayedAction("StartSkating");
         StartDelayedAction("StopSkating", 1f, () => {
+            AudioManager.Instance.StopLoopingSFX();
             PlayerController.instance.StopSkating();
             ObstacleSpawner.instance.SpawnTargets();
             ObstacleSpawner.instance.SpawnObstacles();

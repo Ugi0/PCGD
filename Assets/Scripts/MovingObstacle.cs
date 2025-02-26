@@ -11,6 +11,7 @@ public class MovingObstacle : MonoBehaviour
     {
         startPosition = transform.position; // Store initial position
         animator = GetComponent<Animator>();
+        AudioManager.Instance.PlaySFX("BirdIdle");
     }
 
     void Update()

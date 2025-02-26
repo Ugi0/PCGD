@@ -44,19 +44,22 @@ public class ThrowableObject : MonoBehaviour
         CheckTargetHit(collision.gameObject);
     }
 
-    // TODO: change this system?
     private void CheckTargetHit(GameObject hitObject)
     {
         // Check if hit object is a valid target
-        if(!hitObject.CompareTag("CollisionObject"))
+        if(hitObject.CompareTag("CollisionObject"))
         {
-            return;
-        }
-        CollisionObject collisionObject = hitObject.GetComponent<CollisionObject>();
+            CollisionObject collisionObject = hitObject.GetComponent<CollisionObject>();
         
-        if (collisionObject != null && !alreadyHit)
+            if (collisionObject != null && !alreadyHit)
+            {
+                HandleObjectHit(collisionObject);
+            }
+        }
+        else if(hitObject.CompareTag("Obstacle"))
         {
-            HandleObjectHit(collisionObject);
+            Debug.Log("Bird hit!");
+            AudioManager.Instance.PlaySFX("BirdHit");
         }
     }
 

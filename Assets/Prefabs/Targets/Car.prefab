@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 1142251763522520250}
   - component: {fileID: 2134427305592520851}
   - component: {fileID: 4253252471188054616}
-  - component: {fileID: 2388857572393320733}
   - component: {fileID: 8426498094486227008}
   m_Layer: 0
   m_Name: Car
@@ -193,21 +192,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f9b816eaebc94df2805011e2ac4d249, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionType: 2
+  collisionType: 3
   brokenSprite: {fileID: 6909565156068655908, guid: 89fc436d607252f44b87e80b327f9fb5, type: 3}
---- !u!114 &2388857572393320733
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5845053378581463656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bf4e1ab63b51314bb2558d4033ade1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  arrowSprite: {fileID: -8612056383996156281, guid: 09bb5c0aa41bfd04fb4645d31919bcf6, type: 3}
 --- !u!120 &8426498094486227008
 LineRenderer:
   serializedVersion: 2

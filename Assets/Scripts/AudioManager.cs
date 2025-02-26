@@ -52,7 +52,7 @@ public class AudioManager : MonoBehaviour
 
         else
         {
-            if(s.name == "Throw")
+            if(s.name == "Throw" || s.name == "BirdIdle")
             {
                 sfxSource.Stop(); //makes sure the previous sounds aren't playing when making new throw to stop audio from breaking
             }

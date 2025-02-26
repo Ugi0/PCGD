@@ -35,6 +35,10 @@ public class MainMenu : MonoBehaviour
             Debug.LogError("AudioManager not found in scene!");
             return;
         }
+        else
+        {
+            audioManager.PlayMusic("Menu");
+        }
 
         // Load audio settings
         isMusicMuted = audioManager.musicSource.mute;
@@ -94,6 +98,7 @@ public class MainMenu : MonoBehaviour
 
     public void ToggleSFX()
     {
+        audioManager.PlaySFX("HitGlass");
         if (audioManager == null) return;
 
         isSFXMuted = !isSFXMuted;
