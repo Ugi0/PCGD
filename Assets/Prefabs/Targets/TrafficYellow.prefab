@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2134427305592520851}
   - component: {fileID: 4253252471188054616}
   - component: {fileID: -6712215487389478689}
+  - component: {fileID: 3941991031815910463}
   m_Layer: 0
   m_Name: TrafficYellow
   m_TagString: CollisionObject
@@ -301,3 +302,16 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &3941991031815910463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5845053378581463656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bf4e1ab63b51314bb2558d4033ade1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arrowSprite: {fileID: -8612056383996156281, guid: 09bb5c0aa41bfd04fb4645d31919bcf6, type: 3}
