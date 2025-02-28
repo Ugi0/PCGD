@@ -202,6 +202,7 @@ public class GameStateManager : MonoBehaviour
 
     public void LoadMainMenu()
     {
+        Time.timeScale = 1f; //
         SceneManager.LoadScene("MainMenu");
     }
 
