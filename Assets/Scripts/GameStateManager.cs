@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement; 
+using TMPro;
 public class GameStateManager : MonoBehaviour
 {
     public static GameStateManager instance;
@@ -9,12 +11,15 @@ public class GameStateManager : MonoBehaviour
     private int Health = 3;
 
     public Text scoreText;
-    public Text highscoreText;
+    public TextMeshProUGUI highscoreText;
+    public TextMeshProUGUI MainMenuScoreText;
 
     public GameObject healthSpritePrefab;
     public Transform healthContainer;
     public float healthSpacing = 20f;
     public float leftPadding = 20f;
+    public GameObject gameOverScreen;
+    private CanvasGroup gameOverCanvas;
 
     public int score = 0;
     int highscore = 0;
@@ -24,6 +29,7 @@ public class GameStateManager : MonoBehaviour
 
     private void Awake() {
         instance = this;
+        gameOverCanvas = gameOverScreen.GetComponent<CanvasGroup>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -51,8 +57,24 @@ public class GameStateManager : MonoBehaviour
     public void ReduceHealth() {
         Health -= 1;
         if (Health <= 0) {
+            UpdateRockDisplay(Health);
+
+            // Check if the player achieved a new high score
+            bool isNewHighScore = score > highscore;
+
+            // Update the game over message
+            if (isNewHighScore) {
+                MainMenuScoreText.text = "Score: " + score.ToString();
+                highscoreText.text = "New high score!";
+                PlayerPrefs.SetInt("highscore", score); // Save the new high score
+            } else {
+                MainMenuScoreText.text = "Score: " + score.ToString();
+                highscoreText.text = "High Score: " + highscore.ToString();
+            }
+
             // Game over
-            Reset();
+            // Show the Game Over screen with fade-in effect
+            StartCoroutine(FadeInGameOverScreen());
         }
         UpdateRockDisplay(Health);
     }
@@ -172,4 +194,50 @@ public class GameStateManager : MonoBehaviour
             rockIcons.Add(newRock);
         }
     }
+
+    public void RestartGame() 
+    {
+        StartCoroutine(FadeOutAndRestart());
+    }
+
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
+      IEnumerator FadeInGameOverScreen()
+    {
+        gameOverScreen.SetActive(true);  // Enable Game Over screen
+        float duration = 1.5f;           // Fade-in duration
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            gameOverCanvas.alpha = Mathf.Lerp(0, 1, elapsedTime / duration);
+            elapsedTime += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        gameOverCanvas.alpha = 1;
+        Time.timeScale = 0f; // Pause game after fade-in
+    }
+
+    IEnumerator FadeOutAndRestart()
+    {
+        float duration = 1.5f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            gameOverCanvas.alpha = Mathf.Lerp(1, 0, elapsedTime / duration);
+            elapsedTime += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        gameOverCanvas.alpha = 0;
+        gameOverScreen.SetActive(false);
+        Time.timeScale = 1f; // Resume game
+        Reset();
+    }
+
 }
