@@ -1,3 +1,4 @@
+using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewThrowable", menuName = "Throwable Object")]
@@ -14,6 +15,7 @@ public class ThrowableData : ScriptableObject
 
     [Header("Effects")]
     public GameObject hitEffectPrefab;
+    public Sprite brokenImage;
 }
 
 public enum ThrowableType

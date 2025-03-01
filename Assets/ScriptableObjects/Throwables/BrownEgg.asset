@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e109b8df81f70d44a8195efce327e4ed, type: 3}
+  m_Name: BrownEgg
+  m_EditorClassIdentifier: 
+  flightPattern: 1
+  gravityScale: 1
+  drag: 0
+  mass: 0.75
+  angularDamping: 0.05
+  initialPower: 15
+  torque: 0.1
+  hitEffectPrefab: {fileID: 4455665959968492149, guid: 06b5996e5d191a54fb8752e4a9b2c876, type: 3}
+  brokenImage: {fileID: -4469345179866020434, guid: 61df489dbf70b464bbf7798224e46c0a, type: 3}

@@ -22,6 +22,9 @@ public class CollisionObject : MonoBehaviour
             case CollisionType.WINDOW:
                 HandleWindowCollisionHit();
                 break;
+            case CollisionType.LIGHT:
+                HandleLightCollisionHit();
+                break;
             case CollisionType.NONE:
                 Debug.LogError("Collision type not set!");
                 break;
@@ -53,6 +56,13 @@ public class CollisionObject : MonoBehaviour
         Debug.Log("Window hit!");
         AudioManager.Instance.PlaySFX("HitGlass");
     }
+
+    public void HandleLightCollisionHit()
+    {
+        GameStateManager.instance.AddPoints();
+        Debug.Log("Light hit!");
+        AudioManager.Instance.PlaySFX("HitGlass");
+    }
 }
 
 
@@ -61,5 +71,6 @@ public enum CollisionType
     NONE,
     GROUND,
     TRAFFIC_SIGN,
-    WINDOW
+    WINDOW,
+    LIGHT
 }

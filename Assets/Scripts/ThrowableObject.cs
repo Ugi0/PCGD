@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 
 public class ThrowableObject : MonoBehaviour
@@ -62,14 +61,18 @@ public class ThrowableObject : MonoBehaviour
             hitObject.GetComponent<MovingObstacle>().StopMoving();
             hitObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
             AudioManager.Instance.PlaySFX("BirdHit");
-            hitObject.GetComponent<CollisionObject>().HandleGroundCollisionHit();
         }
     }
 
     private void HandleObjectHit(CollisionObject collisionObject)
     {
-        if(data.hitEffectPrefab != null)
-            Instantiate(data.hitEffectPrefab, transform.position, Quaternion.identity);
+        if(data.hitEffectPrefab != null) {
+            Destroy(Instantiate(data.hitEffectPrefab, transform.position, Quaternion.identity),0.5f);
+            AudioManager.Instance.PlaySFX("Splat");
+        }
+
+        if(data.brokenImage != null)
+            gameObject.transform.GetComponent<SpriteRenderer>().sprite = data.brokenImage;
 
         collisionObject.HandleHit();
         alreadyHit = true;

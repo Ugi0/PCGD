@@ -197,6 +197,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 1d216d41345ebbc4dad56e33695769c3, type: 3}
   - name: Siren
     clip: {fileID: 8300000, guid: 23ee08c978fb45949a0788d125a14dbe, type: 3}
+  - name: Splat
+    clip: {fileID: 8300000, guid: 1d9569bda5e30e94a85ab05d9c850068, type: 3}
   musicSource: {fileID: 6959652323285891398}
   sfxSource: {fileID: 6373361807089187748}
   loopingsfxSource: {fileID: 6373361807089187748}

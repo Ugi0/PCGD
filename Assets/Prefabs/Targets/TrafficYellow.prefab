@@ -193,7 +193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f9b816eaebc94df2805011e2ac4d249, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionType: 3
+  collisionType: 4
   brokenSprite: {fileID: 0}
 --- !u!120 &-6712215487389478689
 LineRenderer:
