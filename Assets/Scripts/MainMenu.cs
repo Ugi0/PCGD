@@ -37,7 +37,7 @@ public class MainMenu : MonoBehaviour
         }
         else
         {
-            audioManager.PlayMusic("Menu");
+            audioManager.PlayLoopingMusic("Menu");
         }
 
         // Load audio settings

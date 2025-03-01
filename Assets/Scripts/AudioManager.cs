@@ -35,10 +35,32 @@ public class AudioManager : MonoBehaviour
         else 
         {
             musicSource.clip = s.clip;
+            musicSource.loop = false;
+            musicSource.Play();
+        }
+    }
+
+    public void StopMusic()
+    {
+            musicSource.Stop();
+    }
+
+    public void PlayLoopingMusic(string name)
+    {
+
+        Sound s = Array.Find(musicSounds, x => x.name == name);
+
+        if (s == null)
+        {
+            Debug.Log("Sound not found");
+        }
+
+        else 
+        {
+            musicSource.clip = s.clip;
             musicSource.loop = true;
             musicSource.Play();
         }
-
     }
 
     public void PlaySFX(string name)

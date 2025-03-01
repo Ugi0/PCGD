@@ -43,12 +43,7 @@ public class GameStateManager : MonoBehaviour
         ResetHealth();
     }
     public void Reset() {
-        Debug.Log("Resetting game state");
-        ResetHealth();
-        score = -1;
-        AddPoints();
-        UpdateRockDisplay(Health);
-        ObstacleSpawner.instance.Reset();
+        SceneManager.LoadScene("SampleScene");
     }
     public void ResetHealth() {
         Health = 3;
@@ -74,6 +69,8 @@ public class GameStateManager : MonoBehaviour
 
             // Game over
             // Show the Game Over screen with fade-in effect
+            Time.timeScale = 0f; // Pause game
+            PlayerController.instance.SetAllowThrow(false);
             StartCoroutine(FadeInGameOverScreen());
         }
         UpdateRockDisplay(Health);
@@ -90,7 +87,7 @@ public class GameStateManager : MonoBehaviour
 
     private void StartMusic()
     {
-        AudioManager.Instance.PlayMusic("Theme");
+        AudioManager.Instance.PlayLoopingMusic("Theme");
     }
 
     public void HitGround() {
@@ -208,6 +205,9 @@ public class GameStateManager : MonoBehaviour
 
       IEnumerator FadeInGameOverScreen()
     {
+        AudioManager.Instance.StopMusic();
+        AudioManager.Instance.PlayMusic("End");
+        AudioManager.Instance.PlaySFX("Siren");
         gameOverScreen.SetActive(true);  // Enable Game Over screen
         float duration = 1.5f;           // Fade-in duration
         float elapsedTime = 0f;
@@ -220,7 +220,6 @@ public class GameStateManager : MonoBehaviour
         }
 
         gameOverCanvas.alpha = 1;
-        Time.timeScale = 0f; // Pause game after fade-in
     }
 
     IEnumerator FadeOutAndRestart()
