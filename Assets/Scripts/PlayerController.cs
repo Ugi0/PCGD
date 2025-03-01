@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     private bool powerIncreasing = true;
     private float currentPower;
     private PlayerState playerState;
-    private GameObject currentThrowable;
+    public GameObject currentThrowable;
     private Vector3 aimDirection;
     private Vector3 oldAimDirection;
     private bool allowThrow;
@@ -266,6 +266,7 @@ public class PlayerController : MonoBehaviour
             Quaternion.identity
         );
         currentThrowable.transform.SetParent(throwingHand.transform);
+        GameStateManager.instance.UpdateHealthIcons(currentThrowable.GetComponent<SpriteRenderer>().sprite.texture);
     }
 }
 

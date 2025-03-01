@@ -193,6 +193,15 @@ public class GameStateManager : MonoBehaviour
             float startX = leftPadding + (rockIcons.Count * healthSpacing);
             rt.anchoredPosition = new Vector2(startX, 0);
             rockIcons.Add(newRock);
+            UpdateHealthIcons(PlayerController.instance.currentThrowable.GetComponent<SpriteRenderer>().sprite.texture);
+        }
+    }
+
+    public void UpdateHealthIcons(Texture newTexture)
+    {
+        foreach(GameObject rockIcon in rockIcons)
+        {
+            rockIcon.GetComponent<RawImage>().texture = newTexture;
         }
     }
 
