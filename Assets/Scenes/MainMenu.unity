@@ -201,8 +201,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 283531303}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+      - m_Target: {fileID: 283531305}
+        m_TargetAssemblyTypeName: AudioUI, Assembly-CSharp
         m_MethodName: ToggleSFX
         m_Mode: 1
         m_Arguments:
@@ -586,6 +586,7 @@ GameObject:
   m_Component:
   - component: {fileID: 283531304}
   - component: {fileID: 283531303}
+  - component: {fileID: 283531305}
   m_Layer: 0
   m_Name: MainMenuManager
   m_TagString: Untagged
@@ -608,12 +609,6 @@ MonoBehaviour:
   mainMenuPanel: {fileID: 1112222303}
   menuCanvasGroup: {fileID: 1112222304}
   highscoreText: {fileID: 1764858108}
-  musicButton: {fileID: 520500570}
-  sfxButton: {fileID: 16873319}
-  musicOnSprite: {fileID: 3952392024310007418, guid: aa2a4b4c2cc9e400284dad51c05999b0, type: 3}
-  musicOffSprite: {fileID: 6574053766965031478, guid: ef727b5a92c5b431bb9fc8633c0e66a4, type: 3}
-  sfxOnSprite: {fileID: -3785336970956462108, guid: 69551f5ff7721454fb67bc390b7b2ea5, type: 3}
-  sfxOffSprite: {fileID: -8893456177509759346, guid: 50990ef477ed84b9cbed08ca59c9def6, type: 3}
 --- !u!4 &283531304
 Transform:
   m_ObjectHideFlags: 0
@@ -629,6 +624,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &283531305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 283531302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d6116615009c774399f14d45c000fa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicButton: {fileID: 520500570}
+  sfxButton: {fileID: 16873319}
+  musicOnSprite: {fileID: 3952392024310007418, guid: aa2a4b4c2cc9e400284dad51c05999b0, type: 3}
+  musicOffSprite: {fileID: 6574053766965031478, guid: ef727b5a92c5b431bb9fc8633c0e66a4, type: 3}
+  sfxOnSprite: {fileID: -3785336970956462108, guid: 69551f5ff7721454fb67bc390b7b2ea5, type: 3}
+  sfxOffSprite: {fileID: -8893456177509759346, guid: 50990ef477ed84b9cbed08ca59c9def6, type: 3}
 --- !u!1 &438557849
 GameObject:
   m_ObjectHideFlags: 0
@@ -774,8 +787,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 283531303}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+      - m_Target: {fileID: 283531305}
+        m_TargetAssemblyTypeName: AudioUI, Assembly-CSharp
         m_MethodName: ToggleMusic
         m_Mode: 1
         m_Arguments:

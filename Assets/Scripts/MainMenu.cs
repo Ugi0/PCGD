@@ -11,40 +11,12 @@ public class MainMenu : MonoBehaviour
     public CanvasGroup menuCanvasGroup;
     public TMP_Text highscoreText;
 
-    [Header("Audio Settings")]
-    public Button musicButton;
-    public Button sfxButton;
-    public Sprite musicOnSprite;
-    public Sprite musicOffSprite;
-    public Sprite sfxOnSprite;
-    public Sprite sfxOffSprite;
-
-    private AudioManager audioManager;
-    private bool isMusicMuted;
-    private bool isSFXMuted;
-
     void Start()
     {
 
         DisplayHighScore();
-        // Find AudioManager
-        audioManager = AudioManager.Instance;
+        AudioManager.Instance.PlayLoopingMusic("Menu");
 
-        if (audioManager == null)
-        {
-            Debug.LogError("AudioManager not found in scene!");
-            return;
-        }
-        else
-        {
-            audioManager.PlayLoopingMusic("Menu");
-        }
-
-        // Load audio settings
-        isMusicMuted = audioManager.musicSource.mute;
-        isSFXMuted = audioManager.sfxSource.mute;
-
-        UpdateAudioUI();
     }
 
     private void DisplayHighScore()
@@ -84,41 +56,5 @@ public class MainMenu : MonoBehaviour
     {
         Debug.Log("Quit Game!");
         Application.Quit();
-    }
-
-    public void ToggleMusic()
-    {
-        if (audioManager == null) return;
-
-        isMusicMuted = !isMusicMuted;
-        audioManager.musicSource.mute = isMusicMuted;  
-
-        UpdateAudioUI();
-    }
-
-    public void ToggleSFX()
-    {
-        audioManager.PlaySFX("HitGlass");
-        if (audioManager == null) return;
-
-        isSFXMuted = !isSFXMuted;
-        audioManager.sfxSource.mute = isSFXMuted; 
-        audioManager.loopingsfxSource.mute = isSFXMuted;
-
-        UpdateAudioUI();
-    }
-
-    private void UpdateAudioUI()
-    {
-        if (musicButton == null || sfxButton == null)
-        {
-            Debug.LogError("Music or SFX button not assigned!");
-            return;
-        }
-
-        musicButton.image.sprite = isMusicMuted ? musicOffSprite : musicOnSprite;
-        sfxButton.image.sprite = isSFXMuted ? sfxOffSprite : sfxOnSprite;
-
-        Debug.Log("Updated Audio UI - Music: " + isMusicMuted + " | SFX: " + isSFXMuted);
     }
 }
