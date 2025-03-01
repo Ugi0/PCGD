@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2262001552619312634}
   - component: {fileID: 3777526333082677265}
   m_Layer: 5
-  m_Name: HealthPrefab
+  m_Name: RedCanIconPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 786, y: 0}
-  m_SizeDelta: {x: 35, y: 35}
+  m_SizeDelta: {x: 25, y: 38}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2262001552619312634
 CanvasRenderer:
@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 574c70de98e1a3f4bbfae3d113bf06e3, type: 3}
+  m_Texture: {fileID: 2800000, guid: 5c65c3fef656d2b41978199b3c8edeb6, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0

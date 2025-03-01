@@ -1161,6 +1161,7 @@ MonoBehaviour:
   oldCrossHair: {fileID: 0}
   poweringSpeed: 2
   aimingSpeed: 1
+  currentThrowable: {fileID: 0}
 --- !u!114 &443836791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4710,7 +4711,13 @@ MonoBehaviour:
   highscoreText: {fileID: 762199975}
   MainMenuScoreText: {fileID: 859178854}
   GameOverMenuPercentageText: {fileID: 2075818785}
-  healthSpritePrefab: {fileID: 3598725590054810376, guid: ff39a21426a6761479b7dc088bb46ea8, type: 3}
+  healthSpritePrefabs:
+  - {fileID: 3598725590054810376, guid: ff39a21426a6761479b7dc088bb46ea8, type: 3}
+  - {fileID: 3598725590054810376, guid: ca802b872811e0f42b0595a985386ccf, type: 3}
+  - {fileID: 3598725590054810376, guid: c72520dc3f87b4b499df9865f9e89506, type: 3}
+  - {fileID: 3598725590054810376, guid: ac94141e6738af747a1fd55c3fe93205, type: 3}
+  - {fileID: 3598725590054810376, guid: eade5b456330107488c891d561b8b687, type: 3}
+  - {fileID: 3598725590054810376, guid: 1a7c8d11052bfb84c987c0cd221898eb, type: 3}
   healthContainer: {fileID: 1816284078}
   healthSpacing: 60
   leftPadding: 40

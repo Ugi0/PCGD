@@ -73,6 +73,7 @@ public class PlayerController : MonoBehaviour
     {
         int randomIndex = Random.Range(0, throwables.Length); // for now
         currentThrowable = throwables[randomIndex];
+        GameStateManager.instance.UpdateHealthIcons(randomIndex);
         InstantiateThrowable();
         GameStateManager.instance.StopDelayedAction("AllowThrow");
     }
@@ -266,7 +267,6 @@ public class PlayerController : MonoBehaviour
             Quaternion.identity
         );
         currentThrowable.transform.SetParent(throwingHand.transform);
-        GameStateManager.instance.UpdateHealthIcons(currentThrowable.GetComponent<SpriteRenderer>().sprite.texture);
     }
 }
 

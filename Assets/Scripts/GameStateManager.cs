@@ -15,7 +15,8 @@ public class GameStateManager : MonoBehaviour
     public TextMeshProUGUI MainMenuScoreText;
     public TextMeshProUGUI GameOverMenuPercentageText;
 
-    public GameObject healthSpritePrefab;
+    public GameObject[] healthSpritePrefabs;
+    private GameObject currentSpritePrefab;
     public Transform healthContainer;
     public float healthSpacing = 20f;
     public float leftPadding = 20f;
@@ -186,23 +187,25 @@ public class GameStateManager : MonoBehaviour
         // Add more rocks if needed
         while (rockIcons.Count < rockCount)
         {
-            GameObject newRock = Instantiate(healthSpritePrefab, healthContainer);
+            GameObject newRock = Instantiate(currentSpritePrefab, healthContainer);
             RectTransform rt = newRock.GetComponent<RectTransform>();
 
             // Set the rock's position correctly inside the container
             float startX = leftPadding + (rockIcons.Count * healthSpacing);
             rt.anchoredPosition = new Vector2(startX, 0);
             rockIcons.Add(newRock);
-            UpdateHealthIcons(PlayerController.instance.currentThrowable.GetComponent<SpriteRenderer>().sprite.texture);
         }
     }
 
-    public void UpdateHealthIcons(Texture newTexture)
+    public void UpdateHealthIcons(int index)
     {
+        currentSpritePrefab = healthSpritePrefabs[index];
         foreach(GameObject rockIcon in rockIcons)
         {
-            rockIcon.GetComponent<RawImage>().texture = newTexture;
+            Destroy(rockIcon);
         }
+        rockIcons.Clear();
+        UpdateRockDisplay(Health);
     }
 
     public void RestartGame() 
