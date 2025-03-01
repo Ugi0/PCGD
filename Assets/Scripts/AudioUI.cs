@@ -16,9 +16,11 @@ public class AudioUI : MonoBehaviour
     void Start()
     {
         // Load audio settings
-        isMusicMuted = AudioManager.Instance.musicSource.mute;
-        isSFXMuted = AudioManager.Instance.sfxSource.mute;
-
+        isMusicMuted = (PlayerPrefs.GetInt("isMusicMuted") != 0);
+        isSFXMuted = (PlayerPrefs.GetInt("isSFXMuted") != 0);
+        AudioManager.Instance.sfxSource.mute = isSFXMuted;
+        AudioManager.Instance.loopingsfxSource.mute = isSFXMuted;
+        AudioManager.Instance.musicSource.mute = isMusicMuted;
         UpdateAudioUI();   
     }
 
@@ -26,8 +28,8 @@ public class AudioUI : MonoBehaviour
     public void ToggleMusic()
     {
         isMusicMuted = !isMusicMuted;
-        AudioManager.Instance.musicSource.mute = isMusicMuted;  
-
+        AudioManager.Instance.musicSource.mute = isMusicMuted;
+        PlayerPrefs.SetInt("isMusicMuted", isMusicMuted ? 1 : 0);
         UpdateAudioUI();
     }
 
@@ -37,7 +39,7 @@ public class AudioUI : MonoBehaviour
         isSFXMuted = !isSFXMuted;
         AudioManager.Instance.sfxSource.mute = isSFXMuted; 
         AudioManager.Instance.loopingsfxSource.mute = isSFXMuted;
-
+        PlayerPrefs.SetInt("isSFXMuted", isSFXMuted ? 1 : 0);
         UpdateAudioUI();
     }
 

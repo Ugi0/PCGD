@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,6 +13,7 @@ public class GameStateManager : MonoBehaviour
     public Text scoreText;
     public TextMeshProUGUI highscoreText;
     public TextMeshProUGUI MainMenuScoreText;
+    public TextMeshProUGUI GameOverMenuPercentageText;
 
     public GameObject healthSpritePrefab;
     public Transform healthContainer;
@@ -66,11 +67,14 @@ public class GameStateManager : MonoBehaviour
                 MainMenuScoreText.text = "Score: " + score.ToString();
                 highscoreText.text = "High Score: " + highscore.ToString();
             }
-
+            float percentile = score == 0 ? 0.0f : CalculatePercentile(score);
+            GameOverMenuPercentageText.text = $"YOU BEAT {percentile:F1}% OF ALL PLAYERS";
             // Game over
             // Show the Game Over screen with fade-in effect
-            Time.timeScale = 0f; // Pause game
             PlayerController.instance.SetAllowThrow(false);
+            ObstacleSpawner.instance.ClearOldTargets();
+            ObstacleSpawner.instance.ClearOldObstacles();
+            StartCoroutine(PoliceCarManager.instance.MoveSequence());
             StartCoroutine(FadeInGameOverScreen());
         }
         UpdateRockDisplay(Health);
@@ -203,7 +207,7 @@ public class GameStateManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-      IEnumerator FadeInGameOverScreen()
+    public IEnumerator FadeInGameOverScreen()
     {
         AudioManager.Instance.StopMusic();
         AudioManager.Instance.PlayMusic("End");
@@ -238,6 +242,16 @@ public class GameStateManager : MonoBehaviour
         gameOverScreen.SetActive(false);
         Time.timeScale = 1f; // Resume game
         Reset();
+    }
+
+    float CalculatePercentile(float score)
+    {
+        //ScoreUtility.CalculateMeanAndSD();
+        float mean = 8.545455f;
+        float stdDev = 5.105498f;
+
+        // Use CDF formula to get percentile rank
+        return ScoreUtility.NormalDistributionCDF(score, mean, stdDev) * 100f;
     }
 
 }
