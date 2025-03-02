@@ -10,13 +10,38 @@ public class MainMenu : MonoBehaviour
     public GameObject mainMenuPanel;
     public CanvasGroup menuCanvasGroup;
     public TMP_Text highscoreText;
+    public Button tutorialButton;
+    public Sprite tutorialOnSprite;
+    public Sprite tutorialOffSprite;
+    private bool isTutorialOff;
 
     void Start()
     {
-
+        isTutorialOff= (PlayerPrefs.GetInt("isTutorialOff") != 0);
         DisplayHighScore();
         AudioManager.Instance.PlayLoopingMusic("Menu");
+        UpdateTutorialUI();
+    }
 
+    
+    public void ToggleTutorial()
+    {
+        isTutorialOff = !isTutorialOff;
+        PlayerPrefs.SetInt("isTutorialOff", isTutorialOff ? 1 : 0);
+        UpdateTutorialUI();
+    }
+
+    private void UpdateTutorialUI()
+    {
+        if (tutorialButton == null)
+        {
+            Debug.LogError("Tutorial button not assigned!");
+            return;
+        }
+
+        tutorialButton.image.sprite = isTutorialOff ? tutorialOffSprite : tutorialOnSprite;
+
+        Debug.Log("Updated tutorial ui: " + isTutorialOff);
     }
 
     private void DisplayHighScore()
