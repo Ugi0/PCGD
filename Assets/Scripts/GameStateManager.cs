@@ -8,7 +8,7 @@ public class GameStateManager : MonoBehaviour
 {
     public static GameStateManager instance;
     
-    private int Health = 3;
+    public int Health = 3;
 
     public Text scoreText;
     public TextMeshProUGUI highscoreText;

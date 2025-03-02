@@ -22,11 +22,12 @@ public class PlayerController : MonoBehaviour
 
     private bool powerIncreasing = true;
     private float currentPower;
-    private PlayerState playerState;
+    public PlayerState playerState;
     public GameObject currentThrowable;
     private Vector3 aimDirection;
     private Vector3 oldAimDirection;
     private bool allowThrow;
+    public int throwCount = 0;
 
     void Awake()
     {
@@ -241,6 +242,8 @@ public class PlayerController : MonoBehaviour
         Rigidbody2D rigidbody2D = currentThrowable.GetComponent<Rigidbody2D>();
         rigidbody2D.constraints = RigidbodyConstraints2D.None; //removes throwable object's rigidbody constrains to allow it simulate physics
         currentThrowable.transform.SetParent(null);
+
+        throwCount++;
 
         Vector2 throwDirection = CalculateThrowDirection();
         Throw(throwDirection);

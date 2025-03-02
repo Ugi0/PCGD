@@ -8,7 +8,7 @@ public class ObstacleSpawner : MonoBehaviour
 
     public GameObject obstaclePrefab; // Prefab to spawn
     public int startingLevel; //The number when the obstacles start spawning
-    private float targetSpawnCount = 0; // Track the number of targets spawned
+    public float targetSpawnCount = 0; // Track the number of targets spawned
 
     public GameObject targetContainer;
     public GameObject[] targets;
