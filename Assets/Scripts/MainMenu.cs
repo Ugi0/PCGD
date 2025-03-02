@@ -8,6 +8,8 @@ public class MainMenu : MonoBehaviour
 {
     [Header("UI Elements")]
     public GameObject mainMenuPanel;
+    public GameObject mainMenuContainer;
+    public GameObject creditsContainer;
     public CanvasGroup menuCanvasGroup;
     public TMP_Text highscoreText;
     public Button tutorialButton;
@@ -23,6 +25,17 @@ public class MainMenu : MonoBehaviour
         UpdateTutorialUI();
     }
 
+    public void OpenCredits()
+    {
+        creditsContainer.SetActive(true);
+        mainMenuContainer.SetActive(false);
+    }
+
+    public void CloseCredits()
+    {
+        mainMenuContainer.SetActive(true);
+        creditsContainer.SetActive(false);
+    }
     
     public void ToggleTutorial()
     {
