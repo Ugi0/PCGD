@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 oldAimDirection;
     private bool allowThrow;
     public int throwCount = 0;
+    private bool randomizeThrowable;
+    private int currentThrowableIndex;
 
     void Awake()
     {
@@ -36,6 +38,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        randomizeThrowable = true;
         ResetPlayer();
         oldCrossHair = GameObject.Find("Crosshair_previous");
         oldCrossHair.SetActive(false);
@@ -56,6 +59,8 @@ public class PlayerController : MonoBehaviour
         AnimateSkateboard(false);
         playerAnimator.SetBool("SkatePhase", false);
         BackgroundManager.instance.SkatingTransition(false);
+        randomizeThrowable = true;
+        GameStateManager.instance.UpdateHealthIcons(currentThrowableIndex);
     }
 
     public void AnimateSkateboard(bool animate)
@@ -70,11 +75,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void SetThrowable()
+    {
+        if(randomizeThrowable)
+        {
+            int randomIndex = Random.Range(0, throwables.Length);
+            currentThrowableIndex = randomIndex;
+            randomizeThrowable = false;
+            GameStateManager.instance.UpdateHealthIcons(currentThrowableIndex);
+        }
+        currentThrowable = throwables[currentThrowableIndex];
+    }
+
     public void ResetThrow()
     {
-        int randomIndex = Random.Range(0, throwables.Length); // for now
-        currentThrowable = throwables[randomIndex];
-        GameStateManager.instance.UpdateHealthIcons(randomIndex);
+        SetThrowable();
         InstantiateThrowable();
         GameStateManager.instance.StopDelayedAction("AllowThrow");
     }

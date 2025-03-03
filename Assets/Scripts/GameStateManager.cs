@@ -99,8 +99,8 @@ public class GameStateManager : MonoBehaviour
         ReduceHealth();
         Debug.Log(Health + " health remaining");
     }
+    
     public void registerHit() {
-        ResetHealth();
         PlayerController.instance.showOldThrow(false);
         PlayerController.instance.StartSkating();
     }
@@ -135,6 +135,7 @@ public class GameStateManager : MonoBehaviour
         StartDelayedAction("BecomeIdle", .6f, () => {
             PlayerController.instance.BecomeIdle();
             StopDelayedAction("BecomeIdle");
+            ResetHealth();
         });
     }
 
@@ -215,7 +216,8 @@ public class GameStateManager : MonoBehaviour
 
     public void LoadMainMenu()
     {
-        Time.timeScale = 1f; //
+        Time.timeScale = 1f;
+        AudioManager.Instance.sfxSource.Stop();
         SceneManager.LoadScene("MainMenu");
     }
 
