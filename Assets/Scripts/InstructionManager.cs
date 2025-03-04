@@ -65,7 +65,7 @@ public class InstructionManager : MonoBehaviour
     private STATE getCurrentState() {
         if (obstacleSpawner.targetSpawnCount != 0 || playerController.playerState == PlayerState.THROWING) return STATE.HIDE;
         if (playerController.playerState == PlayerState.IDLE && gameStateManager.Health != 3 && playerController.throwCount != 0) return STATE.MISS;
-        if (playerController.playerState == PlayerState.SKATING && gameStateManager.Health == 3 && playerController.throwCount != 0) return STATE.HIT;
+        if (playerController.playerState == PlayerState.SKATING && playerController.throwCount != 0) return STATE.HIT;
 
         if (playerController.playerState == PlayerState.AIMING) return STATE.AIM;
         if (playerController.playerState == PlayerState.POWERING) return STATE.POWER;
