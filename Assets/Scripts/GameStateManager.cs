@@ -37,6 +37,7 @@ public class GameStateManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        Application.targetFrameRate = 60;
         highscore = PlayerPrefs.GetInt("highscore", 0);
         scoreText.text = score.ToString();
         //highscoreText.text = "HIGHSCORE: " + highscore.ToString();
@@ -211,7 +212,10 @@ public class GameStateManager : MonoBehaviour
 
     public void RestartGame() 
     {
-        StartCoroutine(FadeOutAndRestart());
+        AudioManager.Instance.StopMusic();
+        AudioManager.Instance.sfxSource.Stop();
+        StopAllCoroutines();
+        FadeOutAndRestart();
     }
 
     public void LoadMainMenu()
@@ -240,18 +244,8 @@ public class GameStateManager : MonoBehaviour
         gameOverCanvas.alpha = 1;
     }
 
-    IEnumerator FadeOutAndRestart()
+    void FadeOutAndRestart()
     {
-        float duration = 1.5f;
-        float elapsedTime = 0f;
-
-        while (elapsedTime < duration)
-        {
-            gameOverCanvas.alpha = Mathf.Lerp(1, 0, elapsedTime / duration);
-            elapsedTime += Time.unscaledDeltaTime;
-            yield return null;
-        }
-
         gameOverCanvas.alpha = 0;
         gameOverScreen.SetActive(false);
         Time.timeScale = 1f; // Resume game
